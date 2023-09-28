@@ -7,3 +7,10 @@
 \contentsline {subsubsection}{\numberline {4.1.1}Rotation}{4}{subsubsection.4.1.1}%
 \contentsline {subsubsection}{\numberline {4.1.2}Reflection}{4}{subsubsection.4.1.2}%
 \contentsline {section}{\numberline {5}Null spaces}{5}{section.5}%
+\contentsline {section}{\numberline {6}Null space cardinality}{6}{section.6}%
+\contentsline {section}{\numberline {7}Eigenvalues and eigenvectors}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Eigenvectors of matrix power}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Power method}{7}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Similar matrices}{7}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}QR factorization}{7}{subsection.7.4}%
+\contentsline {subsubsection}{\numberline {7.4.1}QR iteration}{8}{subsubsection.7.4.1}%

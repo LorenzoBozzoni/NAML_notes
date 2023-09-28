@@ -11,6 +11,10 @@
 \usepackage{multicol}
 \newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}    % horizontal bar in matrices
 
+\newcommand\undermat[2]{%
+  \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
+    \begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
+
 \title{Numerical analysis for machine learning}
 \author{Lorenzo Bozzoni}
 \date{\today}
@@ -19,6 +23,7 @@
 \maketitle
 \tableofcontents
 \include{Lecture1}
+\include{Lecture2}
 
 
 \end{document}
