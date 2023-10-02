@@ -14,3 +14,7 @@
 \contentsline {subsection}{\numberline {7.3}Similar matrices}{7}{subsection.7.3}%
 \contentsline {subsection}{\numberline {7.4}QR factorization}{7}{subsection.7.4}%
 \contentsline {subsubsection}{\numberline {7.4.1}QR iteration}{8}{subsubsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.5}Positive-definite symmetric matrices (SPD)}{9}{subsection.7.5}%
+\contentsline {subsubsection}{\numberline {7.5.1}Singular Value Decomposition (SVD)}{10}{subsubsection.7.5.1}%
+\contentsline {subsubsection}{\numberline {7.5.2}Economy SVD}{11}{subsubsection.7.5.2}%
+\contentsline {subsubsection}{\numberline {7.5.3}Proof of the existence of SVD}{12}{subsubsection.7.5.3}%
