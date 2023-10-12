@@ -1,0 +1,197 @@
+In the last lecture we have introduced the least squares method. In particular we have mentioned the linear model for which:
+\[
+    \hat{\underline{y}} = X\hat{\underline{w}} \hspace{1cm} X \in \mathbb{R}^{n \times p} \hspace{0.4cm} \underline{\hat{y}} \in \mathbb{R}^n \hspace{0.4cm} n \geq p \hspace{0.4cm} X \text{ full rank}
+\]
+We have obtained:
+\[
+    \underline{\hat{w}} = (X^\intercal X)^{-1} X^\intercal \underline{y} \implies \underline{\hat{y}} = \underbrace{X(X^\intercal X)^{-1} X^\intercal}_{P_x} \underline{y}     
+\]
+The matrix $P_x$ dimension is given by the product of: $(n\times p)(p\times p)(p \times n) = (n\times n)$ and has this properties:
+\begin{itemize}
+    \item $P_x = P_x^2$
+    \item $P_x$ is a projection matrix
+\end{itemize}
+
+Let's consider $U$ an orthogonal ($U^\intercal U = I$) matrix that contains the basis for $\mathcal{C}(X)$ this means that $\mathcal{C}(X) = \mathcal{C}(U)$. We can write:
+\[
+    \underline{\hat{y}} = X\underline{\hat{w}} = U\underline{\tilde{w}}    
+\]
+So this basically means that the predicted value of $y$ still a projection on a plane but this time the plane is spanned by the columns of $U$ and not by the columns of $X$. By substituting last equation in the minimization method for least squares we have:
+\[
+    \underline{\tilde{w}} = \underset{\underline{w}}{\arg\min} ||\underline{y} - U\underline{w}||^2_2 \implies \underline{\hat{y}} = U\underline{\tilde{w}} = U(U^\intercal U)^{-1}U^\intercal \underline{y} = UU^\intercal \underline{y} 
+\]
+This formulation is possible because this time in the parenthesis we have an orthogonal matrix and this means that $(U^\intercal U)^{-1} = U^\intercal U = I$. In general $UU^\intercal \neq I$ because it might be rectangular (while $U^\intercal U$ is always square).\\
+
+\textbf{Example of usage of U}
+We start from $X$:
+\[
+    X= \begin{bmatrix}
+        1& 1 \\
+        1 & 3\\
+        0 & 0
+    \end{bmatrix}
+    \hspace{1cm}
+    \underline{x_1} = \begin{bmatrix}
+        1\\
+        1\\
+        0   
+    \end{bmatrix}
+    \hspace{1cm}
+    \underline{x_2} = \begin{bmatrix}
+        1\\
+        3\\
+        0
+    \end{bmatrix}
+\]
+How do we build the orthogonal matrix $U$? We can use the Gram-Schmidt procedure:
+\[
+    \underline{u_1} = \dfrac{\underline{x_1}}{||\underline{x_1}||} = \begin{bmatrix}
+        \dfrac{1}{\sqrt{2}}\\
+        \dfrac{1}{\sqrt{2}}\\
+        0
+    \end{bmatrix}    
+\]
+\[
+    \underline{{x'}_2} = \underline{x_2} - (\underline{x_2}^\intercal \underline{u_1})\underline{u_1} = \underline{x_2} - (\underline{u_1^\intercal} \underline{u_1})\underline{x_2} \implies 
+    \underline{u_2} = \dfrac{\underline{{x'}_2}}{||\underline{{x'}_2}||} 
+    = \begin{bmatrix}
+        -\dfrac{1}{\sqrt{2}}\\
+        \dfrac{1}{\sqrt{2}}\\
+        0
+    \end{bmatrix}    
+\]
+So, the overall matrix $U$ is:
+\[
+    U = \begin{bmatrix}
+        \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\
+        -\dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\
+        0 & 0
+    \end{bmatrix}    \hspace{1cm}
+    U^\intercal U = I \text{ and } UU^\intercal \neq I
+\]
+A drawback of Gram Schmidt is that, depending on the order chosen for the columns of $X$, the matrix $U$ can be different. Moreover, the order of vector columns of $U$ is meaningless. \\
+
+Now, we want to exploit the SVD for computing the orthogonal matrix $U$. We start from the SVD of $X$:
+\[
+    X = U\Sigma V^\intercal    
+\]
+So
+\begin{multicols}{2}
+    \[
+    \begin{split}
+        \underline{\hat{w}} &= (X^\intercal X)^{-1} X^\intercal y\\
+        & = (V\Sigma^\intercal U^\intercal U\Sigma V^\intercal)^{-1} V\Sigma^\intercal U^\intercal \underline{y} \\
+        & = (V\Sigma^\intercal \Sigma V^\intercal)^{-1} V\Sigma^\intercal U^\intercal \underline{y}\\
+        & = V(V\Sigma^\intercal \Sigma V^\intercal)^{-1} V\Sigma^\intercal U^\intercal \underline{y}\\
+        & = V(\Sigma^\intercal \Sigma)^{-1} \underbrace{V^\intercal V}_{I}\Sigma^\intercal U^\intercal \underline{y}\\
+        & = V\underbrace{(\Sigma^\intercal \Sigma)^{-1} \Sigma^\intercal}_{\Sigma^+} U^\intercal \underline{y}\\ 
+        & = V\Sigma^+ U^\intercal \underline{y}
+    \end{split}
+\]
+Recall that:
+\[
+(AB)^{-1} = B^{-1} A^{-1}    
+\]
+\[
+(V^\intercal)^{-1} = V     
+\]
+Because $V$ is orthogonal.\\
+$\Sigma^+$ il called the pseudo-inverse of $\Sigma$.
+\end{multicols}
+Eventually, we have:
+\[
+    \begin{split}
+        \underline{\hat{y}} &= X(X^\intercal X)^{-1} X^\intercal \underline{y} = XX^+ \underline{y}\\ 
+        &= U(U^\intercal U)^{-1} U^\intercal \underline{y} = UU^+ \underline{y}
+    \end{split}
+\]
+Recalling that we are considering the case in which $n \geq p$, the matrices have these dimensions: $U = (n \times n), \Sigma = (n \times p), V^\intercal = (p \times p)$ and:
+\[
+    \Sigma = \begin{bmatrix}
+        \sigma_1 & 0 & \dots & 0\\
+        0 & \sigma_2 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \sigma_p\\
+        0 & 0 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & 0
+    \end{bmatrix}
+\]
+\[
+    \Sigma^\intercal \Sigma = \begin{bmatrix}
+        \sigma_1 & 0 & \dots & 0 & 0 & \dots & 0\\
+        0 & \sigma_2 & \dots & 0 & 0 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \sigma_p & 0 & \dots & 0
+    \end{bmatrix} 
+    \begin{bmatrix}
+        \sigma_1 & 0 & \dots & 0\\
+        0 & \sigma_2 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \sigma_p\\
+        0 & 0 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & 0
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \sigma_1^2 & 0 & \dots & 0\\
+        0 & \sigma_2^2 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \sigma_p^2\\
+    \end{bmatrix}
+\]
+\[
+    (\Sigma^\intercal \Sigma)^{-1} = \begin{bmatrix}
+        \dfrac{1}{\sigma_1^2} & 0 & \dots & 0\\
+        0 & \dfrac{1}{\sigma_2^2} & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \dfrac{1}{\sigma_p^2}\\
+    \end{bmatrix}    
+\]
+\[
+    \Sigma^+ =  (\Sigma^\intercal \Sigma)^{-1} \Sigma^\intercal = \begin{bmatrix}
+        \dfrac{1}{\sigma_1} & 0 & \dots & 0 & 0 & \dots & 0\\
+        0 & \dfrac{1}{\sigma_2} & \dots & 0 & 0 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \dfrac{1}{\sigma_p} & 0 & \dots & 0
+    \end{bmatrix}
+\]
+
+Let's consider now the case in which $p \geq n$ and $X$ has $n$ linearly independent rows (before we had $p$ linearly independent columns). This means that we have more unknowns than equations and we would find infinite solutions for $\underline{\hat{w}}$ such that $\underline{\hat{y}} = X\underline{\hat{w}}$. 
+
+The solution found before $\underline{\hat{w}} = V\Sigma^+ U^\intercal \underline{y}$ it's still valid but now $\Sigma^+ = \Sigma^\intercal(\Sigma\Sigma^\intercal)^{-1}$ so it has the same shape as before but transposed. 
+Summary:
+\begin{multicols}{2}
+    \begin{center}
+        $n > p$\\
+        \vspace{0.3cm}
+        \begin{tikzpicture}
+            \draw (-1,0) -- (1,0) -- (1,4) -- (-1,4) -- (-1,0) -- (0,0) node[below]{$n$};
+            \draw (1,0) -- (1,2) node[right]{$p$};
+        \end{tikzpicture}
+        \[
+            \underline{\hat{w}} = V\Sigma^+ U^\intercal \underline{y}    
+        \]
+        \[
+            \Sigma^+ = (\Sigma^\intercal \Sigma)^{-1} \Sigma^\intercal
+        \]
+    \end{center}
+    \newcolumn
+    \begin{center}
+        $p > n$\\
+        \vspace{0.3cm}
+        \begin{tikzpicture}
+            \draw (-2,0) -- (2,0) -- (2,2) -- (-2,2) -- (-2,0) -- (0,0) node[below]{$p$};
+            \draw (2,0) -- (2,1) node[right]{$n$};
+        \end{tikzpicture}
+        \[
+            \underline{\hat{w}} = V\Sigma^+ U^\intercal \underline{y}    
+        \]
+        \[
+            \Sigma^+ = \Sigma^\intercal(\Sigma\Sigma^\intercal)^{-1}    
+        \]
+
+    \end{center}
+\end{multicols}
+
