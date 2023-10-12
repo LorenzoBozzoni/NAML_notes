@@ -15,6 +15,19 @@
 \contentsline {subsection}{\numberline {7.4}QR factorization}{7}{subsection.7.4}%
 \contentsline {subsubsection}{\numberline {7.4.1}QR iteration}{8}{subsubsection.7.4.1}%
 \contentsline {subsection}{\numberline {7.5}Positive-definite symmetric matrices (SPD)}{9}{subsection.7.5}%
-\contentsline {subsubsection}{\numberline {7.5.1}Singular Value Decomposition (SVD)}{10}{subsubsection.7.5.1}%
-\contentsline {subsubsection}{\numberline {7.5.2}Economy SVD}{11}{subsubsection.7.5.2}%
-\contentsline {subsubsection}{\numberline {7.5.3}Proof of the existence of SVD}{12}{subsubsection.7.5.3}%
+\contentsline {section}{\numberline {8}Singular Value Decomposition (SVD)}{10}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Economy SVD}{11}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Proof of the existence of SVD}{12}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Geometrical interpretation of SVD}{14}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Properties of SVD}{14}{subsubsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.4}Snapshots method}{14}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Matrix norms}{15}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}Eckart-Young theorem}{15}{subsection.8.6}%
+\contentsline {subsubsection}{\numberline {8.6.1}Proof considering $||\cdot ||_F$}{16}{subsubsection.8.6.1}%
+\contentsline {subsubsection}{\numberline {8.6.2}Proof considering $||\cdot ||_2$}{17}{subsubsection.8.6.2}%
+\contentsline {section}{\numberline {9}PCA}{18}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Choose rank of truncated SVD}{18}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Randomize SVD}{19}{subsection.9.2}%
+\contentsline {section}{\numberline {10}Least squares approximation}{20}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Geometrical interpretation}{20}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Optimization}{21}{subsection.10.2}%
