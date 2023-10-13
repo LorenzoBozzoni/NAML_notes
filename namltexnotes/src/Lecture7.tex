@@ -195,3 +195,112 @@ Summary:
     \end{center}
 \end{multicols}
 
+Let's consider two vectors: $\underline{w}$ and $\underline{\hat{w}}$:
+\[
+    \underline{y} = x\underline{w} = X\underline{\hat{w}}     
+\]
+So they both are solutions of the system of equations.
+\begin{multicols}{2}
+\[
+    \begin{split}
+        ||\underline{w}||_2^2 &= ||(\underline{w} - \hat{\underline{w}}) + \hat{\underline{w}}||_2^2\\
+        &= ||\underline{w} - \hat{\underline{w}}||^2_2 - 2\underbrace{(\underline{w}-\hat{\underline{w}})^\intercal \hat{\underline{w}}}_{\star} + ||\hat{\underline{w}}||^2_2    \\
+        &= \underbrace{||\underline{w} - \hat{\underline{w}}||_2^2}_{\geq 0} + ||\hat{\underline{w}}||^2_2 
+    \end{split}
+\]    
+\[
+    \begin{split}
+        \star &= (\underline{w} - \hat{\underline{w}})^\intercal X^\intercal(XX^\intercal) \underline{y}\\
+        &= (X(\underline{w} - \hat{\underline{w}}))^\intercal (XX^\intercal)^{-1} \underline{y}\\
+        &= (X\underline{w} - X\hat{\underline{w}})^\intercal (XX^\intercal)^{-1} \underline{y}\\
+        &= (0)^\intercal (XX^\intercal)^{-1} \underline{y}\\
+        &= 0
+    \end{split}    
+\]
+\end{multicols}
+So
+\[
+    \implies ||\underline{w}||_2^2 \geq ||\hat{\underline{w}}||^2_2     
+\]
+This means that $\underline{\hat{w}}$ has minimum norm solution, i.e. among all possible vectors $w$ that satisfy the initial equation $ \underline{y} = x\underline{w} = X\underline{\hat{w}}$, $\underline{\hat{w}}$ is the one with the minimum norm. In order to understand why that property is important, consider the following example.\\
+
+\noindent Suppose to have:
+\[
+    X = 
+\begin{bmatrix}
+    1 & 0 & 0,01\\
+    0 & 1 & 0
+\end{bmatrix}
+\hspace{1cm}
+\underline{y} = 
+\begin{bmatrix}
+    1\\
+    0\\
+\end{bmatrix}    
+\]
+We could choose:
+\[
+    \underline{w_1} = \begin{bmatrix}
+        1\\
+        0\\
+        0\\
+    \end{bmatrix}
+    \hspace{1cm}
+    \underline{w_2} = \begin{bmatrix}
+        0\\
+        0\\
+        100\\
+    \end{bmatrix}
+\]
+It is easily understandable that, if would choose the second vector as a solution instead of the first one, we would have an important amplification of the error related to the measure of the value of the column feature. The same cannot be said for the first vector.
+
+Notice that, it is not that improbable to have more features than samples, consider for example images, for which each pixel is a feature.
+
+\section{Matrix completion}
+We start from 
+\[
+    X \in \mathbb{R}^{n \times p}  \hspace{0.5cm} rank(X) = r \ll \min(n,p) 
+\]
+We know only partially $X$, we know $X_{i,j}$ \texttt{for} $(i,j) \in \Omega$. 
+
+Matrix completion is a method for filling missing values. If we had full rank matrix we would have very independent columns so we would not be able to retrieve/obtain missing values. Being low rank, in this sense, helps us accomplishing this goal.  
+
+\subsection{Ideal estimator}
+\[
+    \begin{cases}
+        \hat{X} = \underset{z \in \mathbb{R}^{n \times p}}{\arg \min} \left[\text{ rank}(z)\right]\\
+        \text{subject to } \hat{X_{ij}} = X_{ij} (i,j) \in \Omega
+    \end{cases}    
+\]
+This formulation is computationally unfeasible and the object function is non-convex. What is in practical terms saying is that, amongs all possible solutions, we want the one with minimal rank.
+
+How can we solve it?
+
+\subsection{Practical estimator}
+We are going to use the \textbf{Nuclear norm}: $||\cdot||_*  = \sum\limits_{i=1}^{\min(n,p)}\sigma_i$.
+
+The idea is that, instead of minimizing the rank, we minimize the norm since, when performing the SVD, the number of non-zero singular values is equal to the rank of the matrix.
+\[
+    \begin{cases}
+        \hat{X} = \underset{z \in \mathbb{R}^{n \times p}}{\arg \min} ||z||_*\\
+        \text{subject to } \hat{X_{ij}} = X_{ij} (i,j) \in \Omega
+    \end{cases}    
+\]
+This new formulation is convex-optimal. How are we going to solve this problem? With the \textbf{SVT (Singular Value Threshold)}. Here is the algorithm:
+\begin{itemize}
+    \item Initialize $\hat{X} = \texttt{zeros}(n,p)$
+    \item Set $\hat{X}_{ij} = X_{ij} \texttt{ for } (i,j) \in \Omega$
+    \item For $k = 1,2, \dots, N$  
+    \begin{itemize}
+        \item $\hat{X}_{old} = \hat{X}$
+        \item $[U, \Sigma, V^\intercal] = \texttt{svd}(\hat{X})$
+        \item $\Sigma \rightarrow \hat{\Sigma} \hspace{0.2cm} \begin{cases}
+            \hat{\sigma}_i = \sigma_i & \text{ if } \sigma_i > \tau\\
+            \hat{\sigma}_i = 0 & \text{ otherwise }
+        \end{cases}$
+        \item $\hat{X} = U\hat{\Sigma}V^\intercal$
+        \item $\hat{X}_{ij} = X_{ij} \texttt{ for } (i,j) \in \Omega$
+    \end{itemize}
+    \item $||\hat{X} - X_{old}|| < \epsilon$
+\end{itemize}
+The constant $\tau$ is imposing some sort of thresholding on the acceptance of singular values. This is an example of non-monothone algorithm because after the reduction of rank with the condition on sigmas, we override some value of the matrix to the one contained in $\Omega$. Is it proved that for a large enough index $k$ the algorithm converge to the solution. 

@@ -31,3 +31,6 @@
 \contentsline {section}{\numberline {10}Least squares approximation}{20}{section.10}%
 \contentsline {subsection}{\numberline {10.1}Geometrical interpretation}{20}{subsection.10.1}%
 \contentsline {subsection}{\numberline {10.2}Optimization}{21}{subsection.10.2}%
+\contentsline {section}{\numberline {11}Matrix completion}{24}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Ideal estimator}{25}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Practical estimator}{25}{subsection.11.2}%
