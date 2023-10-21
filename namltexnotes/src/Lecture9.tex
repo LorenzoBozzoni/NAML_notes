@@ -1,0 +1,219 @@
+Let's recap what we have seen so far regarding the Least Squares method.
+\[
+    (x_i, y_i) \hspace{0.2cm} i = 1, \dots, n  \hspace{1cm} \underline{x_i} \in \mathbb{R}^p \text{ and } y_i \in \mathbb{R}
+\]
+In matrix form:
+\[
+    X \in \mathbb{R}^{n \times p} \text{ and } \underline{y} \in \mathbb{R}^n    
+\]
+We have made the hypothesis, until now, of having a full rank matrix $X$. The linear model is defined as:
+\[
+    \underline{\hat{y}} = X\underline{\hat{w}}_{LS} \hspace{1cm} \text{with} \hspace{1cm} \underline{\hat{w}}_{LS} = (X^\intercal X)^{-1} X^\intercal \underline{y}    
+\]
+Moreover, we said that the actual value of $y$ is not exactly given by this linear model but it will be an approximation:
+\[
+    y \approx X \underline{w}_{LS}
+\]
+And this can be written by expliciting an error:
+\[
+    \underline{y} = X\underline{w}^* + \underline{\epsilon}    
+\]
+where $\underline{\epsilon}$ is the error or noise vector. If we replace this last equation in the one with $\underline{\hat{w}}_{LS}$ we get:
+\[
+    \underline{\hat{w}}_{LS} = (X^\intercal X)^{-1} X^\intercal (X\underline{w}^* + \underline{\epsilon}) = \underline{w}^* + (X^\intercal X)^{-1} X^\intercal \underline{\epsilon} =      
+\]
+Now we can apply the SVD to $X$ so, if we call $X = U\Sigma V^\intercal$ we get, from previous lectures, that: $(X^\intercal X)^{-1} X^\intercal = V\Sigma^+ U^\intercal$. We have said before that $X$ is full rank so we will have all singular components different than 0 and $\sigma_1 > \sigma_2 > \dots > \sigma_p > 0$. The matrix $\Sigma^+$ is a psuedo-diagonal matrix with the inverse of the singular values on the diagonal (check few pages above). 
+\[
+    =  \underline{w}^* + V\Sigma^+ U^\intercal \underline{\epsilon}    
+\]
+\begin{itemize}
+    \item $U^\intercal \underline{\epsilon}$: we multiply a vector with an orthogonal matrix so its norm will not change.
+    \item $V\Sigma^+ U^\intercal \underline{\epsilon}$: we multiply a vector with a diagonal matrix so we will have a scaling of the vector. But \textbf{if a singular value is very very small, its inverse in the matrix SigmaPlus will be huge and will scale the error vector a lot! So the error will be amplified and the original model vector w* will be negligible}.
+\end{itemize}
+
+\subsection{Ridge regression (regularization)}
+This method will help us in preventing the problem mentioned just before. We start from the definition of the weight vector for linear model explicited for the optimization method of the Least Squares:
+\[
+    \underline{\hat{w}}_{LS} = \arg \min_{\underline{w}} \underbrace{||\underline{y} - X\underline{w}||_2^2 + \lambda ||\underline{w}||_2^2}_{f(\underline{w})}
+\]
+In particular we have added a term. 
+\[
+    f(\underline{w}) = \underline{y}^\intercal \underline{y} - 2\underline{w}^\intercal X \underline{y} + \underline{w}^\intercal X^\intercal X \underline{w} + \lambda \underline{w}^\intercal \underline{w}
+\]
+We can now compute the gradient of this function:
+\[
+        \nabla_w(f(\underline{w})) = -2X^\intercal \underline{y} + 2X^\intercal X \underline{w} + 2\lambda \underline{w} = 0      
+\]
+\[
+    X^\intercal \underline{y} = (X^\intercal X + \lambda I)\underline{w}     
+\]
+\[
+    \underline{\hat{w}}_{R} = (X^\intercal X + \lambda I)^{-1} X^\intercal \underline{y}    
+\]
+It's easy to notice that if $\lambda = 0$ we get the Least Squares solution. If $\lambda > 0$ we will have a different solution. We can now compute the SVD of $X$:
+\[
+    \begin{split}
+        \underline{\hat{w}}_R &= (V\Sigma^\intercal \underbrace{U^\intercal U}_{I} \Sigma V^\intercal + \lambda \underbrace{V^\intercal V}_{I})^{-1} V\Sigma^\intercal U^\intercal \underline{y} \\
+        &= \left[V(\Sigma^\intercal \Sigma + \lambda I)V^\intercal\right]^{-1} V\Sigma^\intercal U^\intercal \underline{y} \\
+        &= V\underbrace{(\Sigma^\intercal \Sigma + \lambda I) \Sigma^\intercal}_{M}U^\intercal \underline{y} \\
+    \end{split}    
+\]
+Where 
+\[
+M = \begin{bmatrix}
+    \dfrac{\sigma_1}{\sigma_1^2 + \lambda} & 0 & \dots & 0 & 0 & \dots & 0\\
+    0 & \dfrac{\sigma_2}{\sigma_2^2 + \lambda} & \dots & 0 & 0 & \dots & 0\\
+    \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & \dots & \dfrac{\sigma_p}{\sigma_p^2 + \lambda} & 0 & \dots & 0
+\end{bmatrix}
+\]
+\begin{itemize}
+    \item if $\sigma_i$ is big compared to $\lambda$ then $\dfrac{\sigma_i}{\sigma_i^2 + \lambda} \approx \dfrac{1}{\sigma_i}$
+    \item if $\sigma_i$ is close to 0 then $\dfrac{\sigma_i}{\sigma_i^2 + \lambda} \approx 0$
+\end{itemize}
+If we now consider again the problem of having a singular value close to 0 we can see that it is now solved because we would reconduct to the second case just above and the pseudo inverse would be almost 0. 
+If $\lambda$ is very small the matrix of $\Sigma$'s is almost equal to $\Sigma^+$.
+\[
+    \begin{split}
+        \underline{\hat{w}}_R &= (X^\intercal X + \lambda I)^{-1} X^\intercal \underline{y}\\
+        &= (X^\intercal X + \lambda I)^{-1} X^\intercal(X\underline{w}^* + \underline{\epsilon})\\
+        &= (X^\intercal X + \lambda I)^{-1} X^\intercal X\underline{w}^* + (X^\intercal X + \lambda I)^{-1} X^\intercal \underline{\epsilon}\\
+    \end{split}    
+\]
+If $\underline{\epsilon} = \underline{0}$ then there is only the first term and, since we are not finding the perfect projection on the plane, we make an higher error with respect to Least Squares. 
+
+\section{Page Rank}
+Consider 4 websites, the arrows represents the link from one site to another. 
+\begin{multicols}{2}
+    \begin{center}
+        \begin{tikzpicture}[
+        SIR/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+        node distance=2cm
+        ]
+        %Nodes
+        \node[SIR]    (1)                              {1};
+        \node[SIR]    (2)       [right=of 1] {2};
+        \node[SIR]    (3)       [below=of 1] {3};
+        \node[SIR]    (4)       [right=of 3] {4};
+        
+        %Lines
+        \draw[->, very thick] (1.north east)  to node[above right] { } (2.north west);
+        \draw[->, very thick] (1.south east)  to node[below right, sloped] { } (4.north west);
+        \draw[->, very thick] (2.south east)  to node[right] { } (4.north east);
+        \draw[->, very thick] (2.west)  to node[below right] { } (1.east);
+        \draw[->, very thick] (3.north)  to node[right] { } (1.south);
+        \draw[->, very thick] (2.south west)  to node[above left, sloped] { } (3.north east);
+        \draw[->, very thick] (4.west)  to node[above right] { } (3.east);
+        \draw[->, very thick] (4.north)  to node[above right, sloped] { } (1.east);
+        \end{tikzpicture}
+    \end{center}
+    
+The idea is to surf the web randomly (random walks on the graph) and if you do that long enough you will reach a \textbf{Steady state} where $\pi_i$ will be the probability of being on the i-th website.\\
+In this case the vector $\underline{\pi} \in \mathbb{R}^4$ because there are 4 websites. 
+\end{multicols}
+We are assuming there are not separated sites. How can we represent the matrix? It an \textbf{Adjacency matrix}
+\[
+    \tilde{A} = \begin{bmatrix}
+        0 & 1 & 1 & 1\\
+        0 & 0 & 1 & 1\\
+        1 & 0 & 0 & 0\\
+        1 & 0 & 1 & 0\\
+    \end{bmatrix}
+    \rightarrow
+    \tilde{A}_{ij} = \begin{cases}
+        1 & \text{if there is a link from i to j}\\
+        0 & \text{otherwise}
+    \end{cases}    
+    \hspace{0.5cm}
+    \overset{\text{normalized version}}{\longrightarrow}
+    A = \begin{bmatrix}
+        0   & 1 & 1/3 & 1/2\\
+        0   & 0 & 1/3 & 1/2\\
+        1/2 & 0 & 0   & 0\\
+        1/2 & 0 & 1/3 & 0\\
+    \end{bmatrix}
+\]
+In the normalized version all columns sum up to 1. What happen if we multiply the matrix $A$ times a canonical basis vector $\underline{e}_3 = \begin{bmatrix}
+    0 & 0 & 1 & 0
+\end{bmatrix}^\intercal$?
+\[
+    A\underline{e_3} = \begin{bmatrix}
+        1/3\\
+        1/3\\
+        0\\
+        1/3\\
+    \end{bmatrix}
+\]
+As it was trivial to figure, we obtain, in this case, the third column of the adjacency matrix. In a probability perspective, the vector $\underline{e}_3$ represents the probability of starting from the third website. The vector we obtain is the probability of reaching the other websites starting from the third one. This means that in this case we are certain that we start from the third website and for sure we won't be in that site in the following iteration. \\
+
+Considering 
+\[
+\underline{\pi} = \begin{bmatrix}
+    \pi_1\\
+    \pi_2\\
+    \pi_3\\
+    \pi_4\\
+\end{bmatrix}    
+\]
+The steady state is defined as: $A\underline{\pi} = \underline{\pi}$.
+This means that, the steady state is the eigenvector of the matrix $A$ with eigenvalue 1. The matrix $A$ is positive (not positive-definite) i.e. it has all non-negative cohefficients. A positive matrix is denoted with $A > 0$.
+From Perron-Frobenius theory we know that $\lambda_1 = 1$ is the largest eigenvalue.
+\[
+    \lambda_1 = 1 > \lambda_2 > \lambda_3 > \dots > \lambda_n \hspace{1cm} \lambda_i \neq 0
+\] 
+As mentioned in a previous lecture, we can use the power method in order to retrieve the largest eigenvalue. In particular, we start from:
+\[
+    \underline{\pi}^{(0)} \hspace{0.5cm}\text{with}\hspace{0.5cm} ||\underline{\pi}^{(0)}||=1    
+\]
+Then, for $k = 1, 2, \dots $
+\[
+    \underline{\pi}^{(k)} = \dfrac{A\underline{\pi}^{(k-1)}}{||A\underline{\pi}^{(k-1)}||}    
+\]
+\[
+    \text{if } ||\underline{\pi}^{(k)} - \underline{\pi}^{(k-1)}|| < \epsilon \text{ then stop}    
+\]
+Obviously, $\epsilon$ represents a tolerance value. As we can see, there is an recursive definition in a sense that, at each iteration, the same operation is made on the same variable. For example:
+\[
+    \underline{\pi}^{(1)} = \dfrac{A\underline{\pi}^{(0)}}{||A\underline{\pi}^{(0)}||}    
+    \hspace{2cm}
+    \underline{\pi}^{(2)} = \dfrac{A\underline{\pi}^{(1)}}{||A\underline{\pi}^{(1)}||} = \dfrac{A^2\underline{\pi}^{()}}{||A^2\underline{\pi}^{(k-1)}||} 
+\]
+So, iterating k times:
+\[
+    \underline{\pi}^{(k)} = \dfrac{A^k\underline{\pi}^{(0)}}{||A^k\underline{\pi}^{(0)}||}     
+\]
+Since in $A$ there are no columns that are completely equal to 0, the matrix can be diagonalized. This implies that there are some $\underline{v}_i, i = 1, \dots, n$ that can used as a basis for the space. In particular we can write:
+\[
+    \underline{\pi}^{(0)} = \sum_{i=1}^n \alpha_i \underline{v}_i
+\]
+We want to plug this expression in the previous equation (power method). Before, notice that, $A\underline{v}_i = \lambda \underline{v}_i$ because $\underline{v}_i$ are the vectors which diagonalize $A$ so the ones such that $A = V\Lambda V^\intercal$. 
+The numerator of $\underline{\pi}^{(k)}$ can be written as:
+\[
+    A^k \underline{\pi}^{(0)} = \alpha_1\lambda_1^k \left(\underline{v}_1 + \sum_{i=2}^{n} \dfrac{\alpha_i}{\alpha_1}\left(\dfrac{\lambda_i}{\lambda_1}\right)^k \underline{v}_i\right)    
+\]
+Proof:
+\begin{multicols}{2}
+    \[
+    \begin{split}
+        A^k \underline{\pi}^{(0)} &= V\Lambda^k V^{-1} \left(\alpha_1\underline{v}_1 + \dots + \alpha_n\underline{v}_n\right)\\
+        &\overset{\circledast }{=} V\Lambda^k \left(\alpha_1\underline{e}_1 + \dots + \alpha_n\underline{e}_n\right)\\
+        &= V\left(\alpha_1\lambda_1^k\underline{e}_1 + \dots + \alpha_n\lambda_n^k\underline{e}_n \right)\\
+        &\overset{\diamond}{=} \alpha_1\lambda_1^k\underline{v}_1 + \dots + \alpha_n\lambda_n^k\underline{v}_n\\
+        &= \alpha_1\lambda_1^k \left(\underline{v}_1 + \dfrac{\alpha_2}{\alpha_1}\left(\dfrac{\lambda_2}{\lambda_1}\right)^k \underline{v}_2 + \dots + \dfrac{\alpha_n}{\alpha_1}\left(\dfrac{\lambda_n}{\lambda_1}\right)^k \underline{v}_n\right)\\
+    \end{split}
+\]
+\[
+    \circledast  \rightarrow V^{-1}\underline{v}_i = V^{-1}\underline{v}_i = \begin{bmatrix}
+        \horzbar & \underline{v}_1^\intercal & \horzbar\\
+        \horzbar & \underline{v}_2^\intercal & \horzbar\\    
+         & \vdots & \\
+        \horzbar & \underline{v}_n^\intercal & \horzbar
+    \end{bmatrix} \underline{v}_i
+    = \underline{e}_i
+\]
+\[
+    \diamond \rightarrow A\underline{v} = \lambda\underline{v} \implies AA\underline{v} = \lambda A\underline{v} \implies A^2\underline{v} = \lambda^2\underline{v}     
+\]
+\end{multicols}
+If $k \to \infty$ then $\left(\dfrac{\lambda_i}{\lambda_1}\right)^k \to 0$ because $\lambda_1 > \lambda_i$ for $i = 2, \dots, n$ . So, the only remaining term is $\underline{v}_1$ which is the eigenvector with the largest eigenvalue. So what we have just done is the proof of the convergence of the power method.The closer are the eigenvalues to $\lambda_1$ the slower is the convergence.
+

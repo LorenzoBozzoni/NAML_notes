@@ -14,6 +14,7 @@
 \usepackage{mathtools}
 \usepackage{color, soul}
 \usepackage{bbm}
+\usetikzlibrary{positioning}
 \DeclareMathOperator{\Tr}{Tr}
 \newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}    % horizontal bar in matrices
 
@@ -21,13 +22,16 @@
   \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
     \begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
 
-\title{Numerical analysis for machine learning}
+\title{\textsc{Numerical Analysis for Machine Learning}}
 \author{Lorenzo Bozzoni}
 \date{\today}
 
+
 \begin{document}
 \maketitle
+\newpage
 \tableofcontents
+
 \include{Lecture1}
 \include{Lecture2}
 \include{Lecture3}
@@ -35,5 +39,8 @@
 \include{Lecture5}
 \include{Lecture6}
 \include{Lecture7}
+\include{Lecture9}   % lecture 8 absent because it was a lab
+\include{Lecture10}
+
 
 \end{document}
