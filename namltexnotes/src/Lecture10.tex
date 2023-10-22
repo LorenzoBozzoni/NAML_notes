@@ -57,7 +57,7 @@ Now we write the formulation of the weights vector $w$ we found for Ridge Regres
     \begin{split}
     \underline{\hat{w}}_R &= V\underbrace{(\Sigma^\intercal \Sigma + \lambda I)^{-1} \Sigma^\intercal}_{\substack{\Sigma^\intercal(\Sigma \Sigma^\intercal + \lambda I)^{-1}}} U^\intercal \underline{y}\\
     &= \underbrace{V\Sigma^\intercal U^\intercal}_{X^\intercal} \underbrace{U(\Sigma \Sigma^\intercal + \lambda I)^{-1} U^\intercal \underline{y}}_{\underline{\alpha} \in \mathbb{R}^n}\\
-    &= X^\intercal \underline{\alpha}\\
+    &\overset{\boxdot}{=} X^\intercal \underline{\alpha}\\
     &= \sum_{i=1}^n \alpha_i \underline{x}_i\\
     \end{split}     
 \]
@@ -122,3 +122,69 @@ Here is the proof:
 \[
     (U\Sigma V^\intercal V\Sigma^\intercal U^\intercal + \lambda UU^\intercal)^{-1} \underline{y}    
 \]
+So, by similarity with the expression obtained in the previous page ($\underline{\hat{w}}_R \overset{\boxdot}{=} X^\intercal \underline{\alpha}$) we can write:
+\[
+    \underline{\alpha} = (\Phi\Phi^\intercal + \lambda I)^{-1} \underline{y}    
+\]
+The computation of $\underline{\alpha}$ is practically impossible since $\Phi$ is huge. How can we reduce the cost of that computation? Introducing the \textbf{Kernel Trick of Kernel Function}:
+\[
+    K(\underline{x}_i, \underline{x}_j) = \underline{x}_i^\intercal \underline{x}_j \hspace{1cm} \leftarrow \text{ scalar product between 2 samples}
+\]
+Consider:
+\[
+\underline{x}_i = 
+\begin{bmatrix}
+    x_{i1}\\
+    x_{i2}
+\end{bmatrix}
+\hspace{0.5cm} \rightarrow \hspace{0.5cm}
+\phi(\underline{x}_i) =
+\begin{bmatrix}
+    x_{i1}^2\\
+    \sqrt{2} x_{i1}x_{i2}\\
+    x_{i2}^2\\
+\end{bmatrix}    
+\]
+\[
+    \phi(\underline{x}_i)^\intercal \phi(\underline{x}_j) = x_{i1}^2x_{j1}^2 + 2x_{i1}x_{i2}x_{j1}x_{j2} + x_{i2}^2x_{j2}^2 = (\star)
+\]
+In order to compute ($\star$) we have to apply the feature map twice and the scalar product between the two vectors. We can avoid this by using the kernel function:
+\[
+    K(\underline{x}_i, \underline{x}_j) = (\underline{x}_i^\intercal \underline{x}_j)^2 = (x_{i1}x_{j1} + x_{i2}x_{j2})^2 = (\star)    
+\]
+But here i'm computing this product immediately, without applying the feature map.WE have computed the scalar product in a cheaper way.
+
+Typical kernel functions family:
+\begin{enumerate}[i]
+    \item Polynomials of degree $q$: $K(\underline{x}_i, \underline{x}_j) = (\underline{x}_i^\intercal \underline{x}_j)^q$
+    \item Polynomials of degree less or equal to $q$: $K(\underline{x}_i, \underline{x}_j) = (\underline{x}_i^\intercal \underline{x}_j + 1)^q$
+    \item Gaussian RBF: $K(\underline{x}_i, \underline{x}_j) = \exp(-\frac{||\underline{x}_i - \underline{x}_j||_2^2}{2\sigma^2})$
+\end{enumerate}
+Consider again the value of alpha:
+\begin{multicols}{2}
+    \[
+        \begin{split}
+            \underline{\alpha} &= (\underbrace{\Phi\Phi^\intercal}_{K \in \mathbb{R}^{n\times n}} + \lambda I)^{-1} \underline{y} \\
+            &= (K + \lambda I)^{-1} \underline{y}\\    
+        \end{split}
+\]
+\vspace{0.2cm}
+\[
+    \begin{split}
+        &\Phi \in \mathbb{R}^{n \times d}    \\
+    &K_{ij} = \phi(\underline{x}_i)^\intercal \phi(\underline{x}_j) = K(\underline{x}_i, \underline{x}_j)   
+    \end{split} 
+\]
+\end{multicols}
+How to predict a label from a new sample?
+\[
+    \begin{split}
+        \hat{y} &= \phi(\underline{x})^\intercal \underline{\hat{w}}_R \\
+        &= \underline{\hat{w}}_R^\intercal \phi(\underline{x})\\
+        &= (\Phi^\intercal \underline{\alpha})\phi(\underline{x})\\
+        &= \underline{\alpha}^\intercal \Phi \phi(\underline{x})\\
+        &= \sum_{i=1}^n \alpha_i \phi(\underline{x}_i)^\intercal \phi(\underline{x})\\
+        &= \sum_{i=1}^n \alpha_i K(\underline{x}_i, \underline{x})\\
+    \end{split}
+\]
+We are doing a scalar product between the already present samples in the dataset and the new one. All weighted by the value of $\alpha$ which represent how much each sample contribute to the definition of the decision boundary. Recall that the scalar product is a similarity measure so there will be samples more or less similar to the one to predict. 

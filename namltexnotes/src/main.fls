@@ -271,6 +271,9 @@ INPUT Lecture9.aux
 INPUT ./Lecture10.aux
 INPUT ./Lecture10.aux
 INPUT Lecture10.aux
+INPUT ./Lecture12.aux
+INPUT ./Lecture12.aux
+INPUT Lecture12.aux
 OUTPUT main.aux
 INPUT /usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -423,6 +426,12 @@ INPUT ../images/LassoRidgePlot.png
 INPUT ../images/LassoRidgePlot.png
 INPUT ../images/LassoRidgePlot.png
 INPUT ../images/LassoRidgePlot.png
+INPUT ./Lecture12.tex
+INPUT ./Lecture12.tex
+OUTPUT Lecture12.aux
+INPUT ./Lecture12.tex
+INPUT ./Lecture12.tex
+INPUT Lecture12.tex
 INPUT main.aux
 INPUT ./Lecture1.aux
 INPUT ./Lecture1.aux
@@ -451,6 +460,9 @@ INPUT Lecture9.aux
 INPUT ./Lecture10.aux
 INPUT ./Lecture10.aux
 INPUT Lecture10.aux
+INPUT ./Lecture12.aux
+INPUT ./Lecture12.aux
+INPUT Lecture12.aux
 INPUT ./main.out
 INPUT ./main.out
 INPUT /root/.texlive2023/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk

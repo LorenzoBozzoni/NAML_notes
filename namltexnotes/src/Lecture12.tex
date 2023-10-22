@@ -1,0 +1,72 @@
+Small recap considering both cases in which we consider both following cases: the features are on the horizontal axes and the vertical one.
+\setlength{\columnseprule}{0.4pt}
+\begin{multicols}{2}
+    \[
+        X \in \mathbb{R}^{n \times p} \hspace{0.2cm} \text{centered and } \begin{cases}
+        n & \text{ \# of samples}\\
+        p & \text{ \# of features}
+    \end{cases}
+    \]
+    \[
+        C = \dfrac{1}{n-1}X^\intercal X (spd)    
+    \]
+    can be factorized:
+    \[
+        C = V\Lambda V^\intercal    
+    \]
+    The columns of $V$ are the eigenvectors of $C$ and $\Lambda$ is a diagonal matrix with the eigenvalues of $C$. The eigenvectors are also called \textbf{principal directions}. The \textbf{principal components} instead, are obtained as:
+    \[
+        XV    
+    \]
+    And they represent the coordinates of the original samples in the new basis. If we write $X = U\Sigma V^\intercal$ then
+    \[
+        \begin{split}
+            C &= \dfrac{1}{n-1}V\Sigma^\intercal U^\intercal U\Sigma V^\intercal \\
+            &= \dfrac{1}{n-1}V\Sigma^2 V^\intercal \\
+        \end{split}    
+    \]
+    And we have also that:
+    \[
+        \lambda_i = \dfrac{1}{n-1}\sigma_i^2    
+    \]
+    Moreover, with SVD:
+    \[
+        XV = U\Sigma V^\intercal V = U\Sigma    
+    \]
+    Are still principal components.
+    \newcolumn
+    \[
+        X \in \mathbb{R}^{p \times n} \hspace{0.2cm} \text{centered and } \begin{cases}
+        n & \text{ \# of samples}\\
+        p & \text{ \# of features}
+    \end{cases}
+    \]
+    Now, in this case we simply need to interchange the roles for $U$ and $V$.
+    \[
+        C = \dfrac{1}{n-1}XX^\intercal = \dfrac{1}{n-1}U\Sigma^2 V^\intercal
+    \]
+    The principal directions are in $U$ (and indeed not in $V$ this time). To get the principal components we have to:
+    \[
+        X^\intercal U    
+    \]
+\end{multicols}
+In Ridge we have found that:
+\[
+\underline{\hat{w}}_{R} = \arg \min_{\underline{w}} ||\underline{y} - \Phi\underline{w}||_2^2 + \lambda ||\underline{w}||_2^2
+\]
+Let's consider a binary classification problem so we have ($\underline{x}_i, y_i$) and $y_i \in \{-1, 1\}, \underline{x}_i \in \mathbb{R}^p$. Now consider Least squares for this problem:
+\vspace{2cm}    
+To complete
+\vspace{2cm}
+\textbf{Example}
+\[
+    y_i = 1 \hspace{1cm} \underline{X}_i^\intercal \underline{w} = 100 \text{ for some } \underline{w}.     
+\]
+
+
+
+
+
+
+
+
