@@ -1,0 +1,121 @@
+Consider $y = f: \mathbb{R}^n \to \mathbb{R}^m$ and the two cases: $\begin{cases}
+    m \gg n\\
+    m \ll n
+\end{cases}$
+In particular, the bottom case is the most interesting one to us since we might have many features in our model, especially for images and neural networks. For this case, the forward mode (FM) seen during last lecture is not very suitable because, considering NN, you need to compute a lot of derivatives wrt the weights. \\
+
+Recall that, the Jacobian matrix is defined as:
+\[
+    \mathbf{J} = \begin{bmatrix}
+        \dfrac{\partial y_1}{\partial x_1} & \dfrac{\partial y_1}{\partial x_2} & \dots & \dfrac{\partial y_1}{\partial x_n}\\
+        \dfrac{\partial y_2}{\partial x_1} & \dfrac{\partial y_2}{\partial x_2} & \dots & \dfrac{\partial y_2}{\partial x_n}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        \dfrac{\partial y_m}{\partial x_1} & \dfrac{\partial y_m}{\partial x_2} & \dots & \dfrac{\partial y_m}{\partial x_n}\\
+    \end{bmatrix}    
+\]
+Suppose to have $\dot{\underline{X}} = \underline{e}_i$ as initialization value for the Wengert list forward pass method. We would have:
+\[
+    \dot{y}_j = \dfrac{\partial y_j}{\partial x_i} \hspace{0.3cm} j = 1, \dots, n    
+\]
+You obtain a column of the jacobian. In general we are interested in the product of the jacobian times a vector which could be anything but often is the evaluation of the function at the previous iteration. It means that in practical computation, we are not interested in having the jacobian and then to perform the matrix-vector multiplication, but we want the result of it. 
+\[\mathbf{J}\underline{r}\]
+\textbf{The FM of AD allows to have this result in a matrix free approach}. Any algorithm that is "matrix-free" means that in practise, even if the computation involves the presence of a matrix, you are able to avoid the construction of the complete matrix. You can resort to some tricks or algorithms that allow you to come up to the desired result without the need to explicitely computing the matrix. This is really good especially when dealing with big matrices. 
+
+Instead of $\underline{\dot{X}} = \underline{e}_i$, we can start from $\underline{\dot{X}} = \underline{r}$ where $\underline{r}$ is the vector we want to multiply the jacobian with. 
+
+\subsection{Dual-numbers}
+They are similar to complex numbers. 
+\[
+    a + b\epsilon \hspace{0.3cm} \text{ with }\hspace{0.3cm} a,b \in \mathbb{R} \hspace{0.3cm} \text{and} \hspace{0.3cm} \epsilon \neq 0, \epsilon^2 = 0    
+\]
+Where $a$ is the real part and $b$ is the dual part. Basic operations with dual numbers:
+\[
+    (a + b\epsilon) + (c + d\epsilon) = (a + c) + (b + d)\epsilon    
+\]
+\[
+    (a + b\epsilon)(c + d\epsilon) = ac + (ad + bc)\epsilon     
+\]
+Why this algebra is useful to our purposes? Consider the generic function $f$, we want to evaluate it with a dual number:
+\[
+    f(a + b\epsilon) = f(a) + f'(a)b\epsilon + \underbrace{\dfrac{f''(a)}{2}b^2\epsilon^2   + \dots}_{0}
+\]
+We have used the Taylor expansion, the last terms are zero because of $\epsilon^2$. Notice that, if we have unitary dual part ($b = 1$), we obtain the derivative of $f$ in $a$. This is the key point of the dual numbers:
+\[
+    b=1 \implies a + b\epsilon = a + \epsilon \implies f(a + \epsilon) = f(a) + f'(a)\epsilon    
+\]
+The last term is again a dual number in which the real part is the value of the function in $a$ and the dual part is the derivative of the function in $a$.\\
+
+Let's check if the derivative properties are actually respected, suppose to have $f(x) = g(x)h(x)$:
+\[
+    \begin{split}
+        f(a + \epsilon) &= g(a + \epsilon)h(a + \epsilon)\\
+        &= [g(a) + g'(a)\epsilon][h(a) + h'(a)\epsilon]\\
+        &= g(a)h(a) + g(a)h'(a)\epsilon + g'(a)h(a)\epsilon + g'(a)h'(a)\epsilon^2\\
+        &= g(a)h(a) + \underbrace{[g(a)h'(a) + g'(a)h(a)]}_{\text{der. of the product}}\epsilon\\
+    \end{split}
+\]
+Or $f(x) = g(h(x))$:
+\[
+    \begin{split}
+        f(a + \epsilon) &= g(h(a + \epsilon))\\
+        &= g(h(a) + h'(a)\epsilon)\\
+        &= \underbrace{ g(h(a))}_{f(a)} + \underbrace{g'(h(a))h'(a)\epsilon}_{f'(a)\epsilon}\\        
+    \end{split}
+\]
+Numerical example:  
+\[
+    f(x) = \dfrac{1}{x} \implies f(x+ \epsilon) = \dfrac{1}{x + \epsilon} = \dfrac{x -\epsilon}{(x + \epsilon)(x - \epsilon)} = \dfrac{x - \epsilon}{x^2 - \epsilon^2} = \dfrac{x - \epsilon}{x^2} = \underbrace{\dfrac{1}{x}}_{f(a)} - \underbrace{\dfrac{1}{x^2}\epsilon}_{f'(a)\epsilon}    
+\]
+Normally, we won't use the definition like this, but we will use real values, i.e. $x = 2$ for example. There is formalism for which $\epsilon$ are represented as matrices:
+\[
+    \epsilon = \begin{bmatrix}
+        0 & 1\\
+        0 & 0
+    \end{bmatrix}
+    \hspace{0.3cm} \implies \hspace{0.3cm}
+    \epsilon^2 = \begin{bmatrix}
+        0 & 1\\
+        0 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        0 & 1\\
+        0 & 0
+    \end{bmatrix}
+    = \begin{bmatrix}
+        0 & 0\\
+        0 & 0
+    \end{bmatrix}    
+\]
+But this is not so important because at the end we are interested in its cohefficients. 
+
+Let's now analyze the \textbf{Backward or reverse mode}.\\
+It's related with the sensitivity of the output wrt the input. We introduce a new quantity:
+\[
+    \overline{v}_i = \dfrac{\partial y}{\partial v_i}   
+\]
+Where $v_i$ is one of the variables we have written considering the forward mode and which might not be the input. This is what happen in backpropagation, a partial derivative of the output wrt to a certain weight of the NN.\\
+We start from the output:
+\begin{center}
+    \begin{tikzpicture}[
+        SIR/.style={draw=red!60, fill=red!5, very thick, minimum size=5mm},
+        node distance=2cm
+        ]
+        %Nodes
+        \node[SIR]    (1)                    {$\dfrac{\partial v_4}{\partial v_4 = 1}$};
+        \node[SIR]    (2)       [below=of 1] {$\bar{v}_3 = \dfrac{\partial v_4}{\partial v_3} = \cos(v_3)$};
+        \node[SIR]    (3)       [below=of 2] {$\bar{v}_1 = \dfrac{\partial v_4}{\partial v_1} = \cos(v_3)v_3$};
+        \node[SIR]    (4)       [right=of 3] {$\bar{v}_2 = \dfrac{\partial v_4}{\partial v_2} = \cos(v_3)v_1$};
+        \node[SIR]    (5)       [below=of 3] {$\bar{v}_{-1} = \dfrac{\partial v_4}{\partial v_{-1}} = v_2\cos(v_3)$};
+        \node[SIR]    (6)       [below=of 4] {$\bar{v}_0 = \dfrac{\partial v_4}{\partial v_0} = 2v_0v_1\cos(v_3) + v_2\cos(v_3)$};
+        
+        %Lines
+       \draw[->, very thick] (2.north)  to node[left] {$\dfrac{\partial v_4}{\partial v_3} = \cos(v_3)$} (1.south);
+       \draw[->, very thick] (3.north)  to node[left] {$\dfrac{\partial v_3}{\partial v_1} = v_2$} (2.south west);
+        \draw[->, very thick] (4.north)  to node[above right] {$\dfrac{\partial v_3}{\partial v_2} = v_1$} (2.south east);
+        \draw[->, very thick] (5.north)  to node[left] {$\dfrac{\partial v_1}{\partial v_{-1}} = 1$} (3.south west);
+        \draw[->, very thick] (6.north)  to node[left] {$\dfrac{\partial v_2}{\partial v_0} = 2v_0$} (4.south);
+        \draw[->, very thick] (6.north west)  to node[left] {$\dfrac{\partial v_1}{\partial v_0} = 1$} (3.south east);
+       \end{tikzpicture}
+\end{center}
+Where the bottom left box is $\frac{\partial y}{\partial x_{1}}$ and the bottom right box is $\frac{\partial y}{\partial x_{2}}$
+We have been able to compute all the intermediate sensitivities not just wrt of the imput. If we have $\mathbb{R}^n \to \mathbb{R}^m$ and $n \gg m$ this method is very efficient because with just one sweep you compute the derivative of the output wrt all the input parameters. In the forward mode i would have had to perform $n$ forward steps, and obviously this would be more costly.
