@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  27 OCT 2023 11:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  30 OCT 2023 16:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -614,7 +614,7 @@ File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count334
 \l__pdf_internal_box=\box117
-) (./main.aux (./Lecture1.aux) (./Lecture2.aux) (./Lecture3.aux) (./Lecture4.aux) (./Lecture5.aux) (./Lecture6.aux) (./Lecture7.aux) (./Lecture9.aux) (./Lecture10.aux) (./Lecture12.aux) (./Lecture13.aux))
+) (./main.aux (./Lecture1.aux) (./Lecture2.aux) (./Lecture3.aux) (./Lecture4.aux) (./Lecture5.aux) (./Lecture6.aux) (./Lecture7.aux) (./Lecture9.aux) (./Lecture10.aux) (./Lecture12.aux) (./Lecture13.aux) (./Lecture15.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
@@ -728,7 +728,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 262--263
 
  []
 
-<../images/Reflection.png, id=256, 314.17375pt x 161.60374pt>
+<../images/Reflection.png, id=271, 314.17375pt x 161.60374pt>
 File: ../images/Reflection.png Graphic file (type png)
 <use ../images/Reflection.png>
 Package pdftex.def Info: ../images/Reflection.png  used on input line 283.
@@ -771,7 +771,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
  []
 
-<../images/SpacesDimensions.png, id=270, 773.89125pt x 455.7025pt>
+<../images/SpacesDimensions.png, id=285, 773.89125pt x 455.7025pt>
 File: ../images/SpacesDimensions.png Graphic file (type png)
 <use ../images/SpacesDimensions.png>
 Package pdftex.def Info: ../images/SpacesDimensions.png  used on input line 143.
@@ -850,7 +850,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1--3
 
 
 ]
-<../images/SVD_Geometric_Interpretation.png, id=326, 887.315pt x 271.0125pt>
+<../images/SVD_Geometric_Interpretation.png, id=341, 887.315pt x 271.0125pt>
 File: ../images/SVD_Geometric_Interpretation.png Graphic file (type png)
 <use ../images/SVD_Geometric_Interpretation.png>
 Package pdftex.def Info: ../images/SVD_Geometric_Interpretation.png  used on input line 161.
@@ -922,7 +922,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--32
 
  []
 
-<../images/OLS_geometric_interpretation.png, id=364, 660.4675pt x 441.65pt>
+<../images/OLS_geometric_interpretation.png, id=379, 660.4675pt x 441.65pt>
 File: ../images/OLS_geometric_interpretation.png Graphic file (type png)
 <use ../images/OLS_geometric_interpretation.png>
 Package pdftex.def Info: ../images/OLS_geometric_interpretation.png  used on input line 40.
@@ -986,7 +986,7 @@ Overfull \hbox (11.978pt too wide) detected at line 204
 \openout2 = `Lecture10.aux'.
 
  (./Lecture10.tex
-<../images/LassoRidgePlot.png, id=407, 524.96124pt x 268.00125pt>
+<../images/LassoRidgePlot.png, id=422, 524.96124pt x 268.00125pt>
 File: ../images/LassoRidgePlot.png Graphic file (type png)
 <use ../images/LassoRidgePlot.png>
 Package pdftex.def Info: ../images/LassoRidgePlot.png  used on input line 34.
@@ -1004,7 +1004,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 43--44
 \openout2 = `Lecture12.aux'.
 
  (./Lecture12.tex
-<../images/LossFunctions.jpg, id=427, 304.9794pt x 163.3302pt>
+<../images/LossFunctions.jpg, id=442, 304.9794pt x 163.3302pt>
 File: ../images/LossFunctions.jpg Graphic file (type jpg)
 <use ../images/LossFunctions.jpg>
 Package pdftex.def Info: ../images/LossFunctions.jpg  used on input line 78.
@@ -1048,27 +1048,75 @@ Underfull \hbox (badness 10000) in paragraph at lines 45--47
 
 
 
-]) [37] (./main.aux (./Lecture1.aux) (./Lecture2.aux) (./Lecture3.aux) (./Lecture4.aux) (./Lecture5.aux) (./Lecture6.aux) (./Lecture7.aux) (./Lecture9.aux) (./Lecture10.aux) (./Lecture12.aux) (./Lecture13.aux))
+]
+Underfull \hbox (badness 10000) in paragraph at lines 120--123
+
+ []
+
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 140--46
+
+ []
+
+[38]
+\openout2 = `Lecture15.aux'.
+
+ (./Lecture15.tex [39
+
+
+
+] [40]
+<../images/FourthRoots.jpg, id=483, 292.09125pt x 301.125pt>
+File: ../images/FourthRoots.jpg Graphic file (type jpg)
+<use ../images/FourthRoots.jpg>
+Package pdftex.def Info: ../images/FourthRoots.jpg  used on input line 173.
+(pdftex.def)             Requested size: 116.83441pt x 120.44786pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 211--213
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--216
+
+ []
+
+[41 <../images/FourthRoots.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 325--327
+
+ []
+
+) [42] (./main.aux (./Lecture1.aux) (./Lecture2.aux) (./Lecture3.aux) (./Lecture4.aux) (./Lecture5.aux) (./Lecture6.aux) (./Lecture7.aux) (./Lecture9.aux) (./Lecture10.aux) (./Lecture12.aux) (./Lecture13.aux) (./Lecture15.aux))
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E1610ED39C7E23EC542A3612B6EE2751;6536.
+(rerunfilecheck)             Checksum: 88272127DB2AC06DA7C4147B1CF88225;7117.
  ) 
 Here is how much of TeX's memory you used:
- 23819 strings out of 474934
- 433988 string characters out of 5759817
+ 23865 strings out of 474934
+ 434958 string characters out of 5759817
  1955807 words of memory out of 5000000
- 44761 multiletter control sequences out of 15000+600000
- 569802 words of font info for 82 fonts, out of 8000000 for 9000
+ 44790 multiletter control sequences out of 15000+600000
+ 570103 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,28n,87p,965b,828s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </root/.texlive2023/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (37 pages, 627162 bytes).
+ </root/.texlive2023/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on main.pdf (42 pages, 662828 bytes).
 PDF statistics:
- 586 PDF objects out of 1000 (max. 8388607)
- 484 compressed objects within 5 object streams
- 127 named destinations out of 1000 (max. 500000)
- 371 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 631 PDF objects out of 1000 (max. 8388607)
+ 520 compressed objects within 6 object streams
+ 137 named destinations out of 1000 (max. 500000)
+ 400 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -39,3 +39,6 @@
 \contentsline {section}{\numberline {13}Kernel Methods}{31}{section.13}%
 \contentsline {section}{\numberline {14}Computing derivatives}{34}{section.14}%
 \contentsline {subsection}{\numberline {14.1}Dual-numbers}{36}{subsection.14.1}%
+\contentsline {section}{\numberline {15}Convolution}{39}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Cyclic convolution}{39}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Eigenvectors and eigenvalues of a circuland matrix}{40}{subsection.15.2}%

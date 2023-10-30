@@ -279,6 +279,9 @@ INPUT Lecture12.aux
 INPUT ./Lecture13.aux
 INPUT ./Lecture13.aux
 INPUT Lecture13.aux
+INPUT ./Lecture15.aux
+INPUT ./Lecture15.aux
+INPUT Lecture15.aux
 OUTPUT main.aux
 INPUT /usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -455,6 +458,18 @@ INPUT ./Lecture13.tex
 INPUT Lecture13.tex
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
+INPUT ./Lecture15.tex
+INPUT ./Lecture15.tex
+OUTPUT Lecture15.aux
+INPUT ./Lecture15.tex
+INPUT ./Lecture15.tex
+INPUT Lecture15.tex
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
+INPUT ../images/FourthRoots.jpg
+INPUT ../images/FourthRoots.jpg
+INPUT ../images/FourthRoots.jpg
+INPUT ../images/FourthRoots.jpg
+INPUT ../images/FourthRoots.jpg
 INPUT main.aux
 INPUT ./Lecture1.aux
 INPUT ./Lecture1.aux
@@ -489,6 +504,9 @@ INPUT Lecture12.aux
 INPUT ./Lecture13.aux
 INPUT ./Lecture13.aux
 INPUT Lecture13.aux
+INPUT ./Lecture15.aux
+INPUT ./Lecture15.aux
+INPUT Lecture15.aux
 INPUT ./main.out
 INPUT ./main.out
 INPUT /root/.texlive2023/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk
@@ -497,6 +515,7 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.p
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb

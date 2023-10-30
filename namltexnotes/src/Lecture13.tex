@@ -119,3 +119,22 @@ We start from the output:
 \end{center}
 Where the bottom left box is $\frac{\partial y}{\partial x_{1}}$ and the bottom right box is $\frac{\partial y}{\partial x_{2}}$
 We have been able to compute all the intermediate sensitivities not just wrt of the imput. If we have $\mathbb{R}^n \to \mathbb{R}^m$ and $n \gg m$ this method is very efficient because with just one sweep you compute the derivative of the output wrt all the input parameters. In the forward mode i would have had to perform $n$ forward steps, and obviously this would be more costly.
+The same reasons but inversly are valid in case of $n \ll m$.\\
+
+If you have a function $f: \mathbb{R}^n \to \mathbb{R}$, for 1 evaluation of $ops(f)$ (floating point operations), then is possible to find that, the computation of the Jacobian requires:
+\begin{itemize}
+    \item FM $\approx n\times c\times ops(f)$ operations
+    \item BM $\approx m\times c\times ops(f)$ operations
+\end{itemize}
+Where $c \approx 2.5$. Theoretical results that have been proven. So, obviously, depending on the size of $m$ and $n$, one of the two methods is more convenient.\\
+
+If in FM we initialize $\underline{\dot{x}} = \underline{r}$ then we will end up with $\mathbf{J}\underline{r}$. While in BM if we initialize with $\bar{\underline{y}} = \underline{r}$ then we will obtain $\mathbf{J}^\intercal \underline{r}$. In both cases we have a matrix-free method that allows to come up with this problem. What is one drawback of the backward mode BM? In order to compute the backward you need to store all the values of the forward step.\\
+
+In the \textbf{Newton method} we need to compute the \textbf{Hessian matrix $\mathbf{H}$}. As before, in numerical methods, we won't be interested in having the Hessian matrix by its own but always it's important to compute the product of the Hessian times a vector $\underline{v}$. So we have the same situation we had for the jacobian.  
+
+Suppose to have $f: \mathbb{R}^n \to \mathbb{R}$ and the vector $\underline{x}$ that we want to multiply to the Hessian. There is the method called: \textbf{Reverse-on-forward} in which essentially you need to perform two steps:
+\begin{enumerate}[i]
+    \item $\nabla f \times \underline{x} \equiv \dfrac{\partial f}{\partial \underline{x}}$ and this can be done in a forward sweep. In this particular function case this operation is the same as $\mathbf{J}\underline{r}$ and correspond to the directional derivative of $f$ in the direction of $\underline{x}$. This can be computed with the forward mode by initializing $\underline{\dot{x}} = \underline{v}$.
+    \item Apply the backward mode to the result of $i$ and obtain $\nabla^2 f \times  \underline{v} = H \underline{v}$. 
+\end{enumerate} 
+To compute in general the Jacobian requires $n^2$ operations while in this case just $n$. we don't have the complete matrix $\mathbf{H}$ and this is obviously the tradeoff but in this case we are interested in the product of the Hessian times a vector, so depending on what you are interested in, you can use this efficient method.\\
