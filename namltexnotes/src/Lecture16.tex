@@ -1,0 +1,188 @@
+So far we have seen that our goal is to find:
+\[
+    \underline{w}^* = \arg \min_{\underline{w}} J(\underline{w})   
+\]
+Let's now see gradually, how to solve this minimization problem by means of different methods.
+
+\section{Gradient descent (GD)}
+Consider the following first order approximation:
+\[
+    \Delta J \approx \nabla J \underbrace{\Delta \underline{w}}_{\Delta \underline{w} = -\eta\nabla J} = -\eta \|\nabla J\|^2    
+\]
+The actual method is defined by the formula:
+\[
+     \underline{w}^{(k+1)}= w^{(k)}- \eta\nabla J(\underline{w}^{(k)})   
+\]
+Let's see some properties using now $x$ as $w$, so the formula is: $ \underline{x}^{(k+1)}= x^{(k)}- \eta\nabla f(\underline{x}^{(k)}) $ where $f$ is the function we want to minimize and $\eta$ the learning rate.
+
+If $\eta$ is to small, the convergence is slow. If $\eta$ is too large, the convergence is not guaranteed since you have overshooting. For now, we are considering a fixed $\eta$ (not dependent on $k$).
+
+\subsection{Convergence}
+Definition: $f: \text{dom}(f) \to \mathbb{R}$ is \textbf{convex} if:
+\begin{enumerate}[i]
+    \item $\text{dom}(f)$ is convex
+    \item $\forall \underline{x}, \underline{y} \in \text{dom}(f), \lambda \in [0,1]: f(\lambda \underline{x} + (1-\lambda)\underline{y}) \leq \lambda f(\underline{x}) + (1-\lambda)f(\underline{y})$
+\end{enumerate} 
+Lemma: if $\text{dom}(f)$ is open and $f$ is differentiable, then $f$ is complex iff the domain of $f$ is convex and 
+\[
+    f(\underline{y}) \geq f(\underline{x}) + \nabla f(\underline{x})^T(\underline{y}-\underline{x}) \quad \forall \underline{x}, \underline{y} \in \text{dom}(f)    
+\]
+This last formulation states that the function must be above the tangent line or, more generally, above the tangent hyperplane built starting from point \underline{x}.\\
+
+Set $\underline{x} = \underline{x}^{(k)}$ and $\underline{y} = \underline{x}^*$, where $\underline{x}^*$ is the minimum point. Then we can substitute the inequality in the lemma and obtain:
+\[
+    \begin{split}
+        f(\underline{x}^*) &\geq f(\underline{x}^{(k)}) + \nabla f(\underline{x}^{(k)})^T(\underline{x}^*-\underline{x}^{(k)})\\
+        f(\underline{x}^{(k)}) - f(\underline{x}^*) &\leq \nabla f(\underline{x}^{(k)})^T(\underline{x}^*-\underline{x}^{(k)})
+    \end{split}
+\]
+We define now the value $\underline{g}^{(k)} = \nabla f(x^{(k)})$. Thanks to this, we can rewrite the original gradient descent formula as:
+\[
+    \underline{x}^{(k+1)} -\underline{x}^{(k)}= - \eta \underline{g}^{(k)}    
+\]
+And so we can reformulate as follows:
+\[
+    \underline{g}^{(k)} = \frac{\underline{x}^{(k+1)} -\underline{x}^{(k)}}{-\eta} = \frac{\underline{x}^{(k)} - \underline{x}^{(k+1)}}{\eta}
+\]
+Thanks to this we have:
+\[
+    f(\underline{x}^{(k)}) - f(\underline{x}^*) \leq \nabla f(\underline{x}^{(k)})^T(\underline{x}^*-\underline{x}^{(k)}) = \dfrac{1}{\eta} (\underline{x}^{(k)} - \underline{x}^*)(\underline{x}^{(k)}-\underline{x}^{(k+1)}) = (\star)
+\]
+We are now going to exploit a property seen also when dealing with least squares, for which:
+\[
+    \|\underline{v} - \underline{w}\|^2 = (\underline{v} - \underline{w})^\intercal (\underline{v} - \underline{w}) = \underline{v}^\intercal \underline{v} - 2\underline{v}^\intercal \underline{w} + \underline{w}^\intercal \underline{w} = \|\underline{v}\|^2 - 2\underline{v}^\intercal \underline{w} + \|\underline{w}\|^2    
+\]
+\[
+    \implies 2\underline{v}^\intercal \underline{w} = \|\underline{v}\|^2 + \|\underline{w}\|^2 - \|\underline{v} - \underline{w}\|^2    
+\]
+We reconduct to this form by adding a 2 both at the numerator and denumerator and considering the two parenthesis as the vectors $v$ and $w$:
+\[
+    \begin{split}
+        (\star) &= \dfrac{1}{2 \eta} 2\underbrace{(\underline{x}^{(k)} - \underline{x}^*)}_{\underline{v}^\intercal}\underbrace{(\underline{x}^{(k)}-\underline{x}^{(k+1)})}_{\underline{w}} \\
+        &= \dfrac{1}{2 \eta} \left(\|\underline{x}^{(k)} - \underline{x}^{(k+1)}\|^2 + \|\underline{x}^{(k)} - \underline{x}^*\|^2 - \|\underline{x}^{(k+1)} - \underline{x}^*\|^2 \right) \\
+        &= \dfrac{1}{2 \eta} \left( \eta^2 \|\underline{g}^{(k)}\|^2 + \|\underline{x}^{(k)} - \underline{x}^*\|^2 - \|\underline{x}^{(k+1)} - \underline{x}^*\|^2 \right) \\
+        &= \dfrac{\eta}{2} \|g^{(k)}\| + \dfrac{1}{2 \eta} \left( \|\underline{x}^{(k)} - \underline{x}^*\|^2 - \|\underline{x}^{(k+1)} - \underline{x}^*\|^2 \right) \\
+    \end{split}
+\]
+In the second row, in the last norm, you should have $x^{(k)}$ also (notice the property) but it's not there because it's summed to it's opposite so they cancel out.\\ 
+If $N$ is the last iteration we want to perform we can write:
+\[
+    \sum_{k=0}^{N-1}   \left(f(\underline{x}^{(k)})-f(\underline{x}^*)\right) \leq \dfrac{\eta}{2} \sum_{k=0}^{N-1}\|\underline{g}^{(k)}\|^2 + \dfrac{1}{2 \eta}\|\underline{x}^{(0)} - \underline{x}^*\|^2  = (\divideontimes)
+\]
+There are just two terms of $\underline{x}$ because it is a telescopic sum and the intermediate contributions cancel out (see previous equations in which both termns $x^{(k)}$ and $x^{(k+1)}$ are present). To be even more precise, there should be also another term $x^{(N)}$ (its norm with x star)but it is not there because it is summed with the negative sign so, the inequality holds even without it.
+
+Recall that $x^{(0)}$ is the initial guess, given. The problem is the norm of the gradient, which is not known. 
+
+\subsection{Lipschitz convex functions}
+We are assuming that all the gradients are bounded ($\|\underline{g}^{(k)} \leq L\|, \forall k$) which implies that the function is Lipschitz continuous. We want to prove this theorem:
+
+\textbf{Theorem}: $f:\mathbb{R}^d \to \mathbb{R} $ convex, differentiable with minimum $\underline{x}^*$, suppose that $\|x^{(0)} - x^*\| < R$ and $\nabla f(x) \leq L$. Then chosing $\eta = \frac{R}{L\sqrt{N}}$ we have 
+\[
+    \dfrac{1}{N}    \sum_{k=0}^{N-1} \left(f(\underline{x}^{(k)})-f(\underline{x}^*)\right) \leq \dfrac{RL}{\sqrt{N}}
+\]
+For example the function $f(x) = x^2$ does not satisfy the hypothesis of this theorem because the gradient is not bounded. This hypothesis $\|x^{(0)} - x^*\| < R$ states that the initial guess is not too far from the optimum. 
+Let's now consider the quantity $(\divideontimes)$, it can be rewritten, considering the hypothesis of the theorem, as:
+\[
+    (\divideontimes) = \underbrace{\dfrac{\eta}{2}NL^2 + \dfrac{1}{2\eta}R^2}_{l(\eta)} \hspace{0.5cm} \implies \hspace{0.5cm} l'(\eta) = \dfrac{NL^2}{2} - \dfrac{R^2}{2\eta^2}   
+\]
+We set the derivative to zero to find the minimum of the function $l(\eta)$:
+\[
+    NL^2 - \dfrac{R^2}{\eta^2} = 0 \hspace{0.5cm} \implies \hspace{0.5cm} \eta = \dfrac{R}{L\sqrt{N}}    
+\]
+Which corresponds to the value we have stated in the hypothesis of the theorem. We now substitute the value of $\eta$ in $l(\eta)$:
+\[
+    l(\eta) = \dfrac{\eta}{2}NL^2 + \dfrac{1}{2\eta}R^2 = \dfrac{R}{2L\sqrt{N}}NL^2 + \dfrac{1}{2}\dfrac{R^2 L\sqrt{N}}{R} = RL{\sqrt{N}}
+\]
+So, we recap what we have done so far:
+\[
+    \begin{split}
+        \sum_{k=0}^{N-1} \left(f(\underline{x}^{(k)})-f(\underline{x}^*)\right) &\leq \dfrac{\eta}{2} \sum_{k=0}^{N-1}\|\underline{g}^{(k)}\|^2 + \dfrac{1}{2 \eta}\|\underline{x}^{(0)} - \underline{x}^*\|^2  = \dfrac{\eta}{2}NL^2 + \dfrac{1}{2\eta}R^2\\
+        &\leq \dfrac{\eta}{2}NL^2 + \dfrac{1}{2\eta}R^2\\
+        &\leq RL{\sqrt{N}}
+    \end{split}
+\]
+We can divide both terms for $N$ and obtain the result:
+\[
+    \dfrac{1}{N} \sum_{k=0}^{N-1} \left(f(\underline{x}^{(k)})-f(\underline{x}^*)\right) \leq \dfrac{RL}{\sqrt{N}}    
+\]
+The left part is a sort of average of the error, we can bound it by working on the right part. 
+\[
+    \dfrac{RL}{\sqrt{N}} \leq \epsilon \implies \dfrac{R^2L^2}{N} \leq \epsilon^2 \implies N \geq \dfrac{R^2L^2}{\epsilon^2}    
+\]
+And so $N = O(\frac{1}{\epsilon^2})$. This is the number of iterations of the gradient descent method that we need in order to achieve an average error $\epsilon$. $R,L$ are not quantity easily computable but $R$ in general, in real scenarios, could be big (look how it is defined in the theorem). $L$ also can be big. An \textbf{important} thing to notice regarding the last result is that we have found a bound which does not depend on the dimension of the feature vector $d$ (indeed we defined $f: \mathbb{R}^d \to \mathbb{R}$).
+
+\subsection{Smooth convex functions}
+Definition: $f: \text{dom}(f) \to \mathbb{R}$ differentiable, $X \subseteq \text{dom}(f)$ is convex, $L \in \mathbb{R}^+$ (is a positive constant) function $f$ is smooth with parameter $L$ over $X$ if:
+\[
+    \forall \underline{x}, \underline{y} \in X: f(\underline{y}) \leq f(\underline{x}) + \nabla f(\underline{x})^T(\underline{y}-\underline{x}) + \dfrac{L}{2}\|\underline{y}-\underline{x}\|^2    
+\]
+This means that the function is below a quadratic approximation. \\
+
+\textbf{Lemma}: dom($f$) is open and convex and $f: \text{ dom}(f) \to \mathbb{R}$ differentiable. Let $L \in \mathbb{R}^+$ the following statements are equivalent:
+\begin{enumerate}
+    \item $f$ is smooth with paramenter $L$ over dom($f$)
+    \item $g$ defined by $\underline{g}(\underline{x}) = \dfrac{L}{2}\underline{x}^\intercal \underline{x} - f(x)$ is convex over $\text{dom}$(\underline{g}) = dom($f$) 
+\end{enumerate}
+Considering the definition given above we have these cases:
+\begin{itemize}
+    \item if $L=0$ we can rewrite the inequality as:
+    \[
+        f(\underline{y}) = f(\underline{x}) + \nabla f(\underline{x})^T(\underline{y}-\underline{x})      
+    \]
+    Which is the definition of affine function.
+    \item if $f(x) = x^2$, i.e. a function which does not satisfy the hypothesis of the theorem:
+    \[
+        f(y) = y^2 = x^2 + 2x(y - x)+(y- x)^2    
+    \]
+    Where there should be a $\frac{L}{2}$ in front of the last term but it is not there because it is 1 which implies that $L=2$. So, the function is convex and smooth with parameter $L=2$.
+    \item if $f(\underline{x}) = \underline{x}^\intercal Q \underline{x} + \underline{b}^\intercal \underline{x} + c$, typical exmaple of quadratic function. $Q$ is a $d \times d$ matrix , symmetric, $\underline{b} \in \mathbb{R}^d$ and $c \in \mathbb{R}$. The function is smooth with $L = 2\|Q\|$ (twice the spectral norm). Where:
+    \[
+        \|Q\| = \max_{\overset{\underline{x} \in \mathbb{R}^d}{\underline{x}\neq 0}} \dfrac{\|A\underline{x}\|}{\|\underline{x}\|}   
+    \]
+    \item if $f(x) = x^4$ then $f$ is not smooth but is convex. \textbf{You cannot expect functions that have an asymptotic behaviour higher the quadratic one which are smooth. The highest degree for which you can expect to have smoothness is 2. This does not imply that the functions with degree lower than 2 are smooth.} Consider for example $f(x)= |x|^{3/2}$.
+\end{itemize}
+
+\textbf{Lemma}: $f: \mathbb{R}^d \to \mathbb{R}$ convex, differentiable. The following statements are equivalent:
+\begin{enumerate}
+    \item $f$ is smooth with parameter $L$ over dom($f$)
+    \item $\forall \underline{x}, \underline{y} \in \mathbb{R}^d: \|\nabla f(\underline{x}) - \nabla f(\underline{y})\| \leq L\|\underline{x} - \underline{y}\|$
+\end{enumerate}
+So if the gradient is Lipschitz continuous, then the function is smooth and viceversa.\\
+
+Let $f: \mathbb{R}^d \to \mathbb{R}$ smooth L, differentiable. Picking $\eta = \frac{1}{L}$, Gradient descent satisfies:
+\[
+    f(\underline{x}^{(k+1)}) \leq f(\underline{x}^{(k)}) - \dfrac{1}{2L}\|\nabla f(\underline{x}^{(k)})\|^2 \hspace{0.5cm} \forall k \geq 0q    
+\]
+Proof: we start writing the gradient descent with the $\eta$ value defined:
+\[
+    \underline{x}^{(k+1)} = \underline{x}^{(k)} - \dfrac{1}{L}\nabla f(\underline{x}^{(k)})    
+\]
+We use now the inequality obatined in the smooth convex function definition:
+\[
+    \begin{split}
+        f(\underline{x}^{(k+1)}) &\leq f(\underline{x}^{(k)}) + \nabla f(\underline{x}^{(k)})^T(\underline{x}^{(k+1)}-\underline{x}^{(k)}) + \dfrac{L}{2}\|\underline{x}^{(k+1)}-\underline{x}^{(k)}\|^2 \\
+        &= f(\underline{x}^{(k)}) + \nabla f(\underline{x}^{(k)})^T\left(\underline{x}^{(k)} - \dfrac{1}{L}\nabla f(\underline{x}^{(k)})-\underline{x}^{(k)}\right)+ \dfrac{L}{2}\|\underline{x}^{(k)} - \dfrac{1}{L}\nabla f(\underline{x}^{(k)})-\underline{x}^{(k)}\|^2\\
+        &= f(\underline{x}^{(k)}) - \dfrac{1}{L} \|\nabla f(x^{(k)})\|^2 + \dfrac{1}{2L} \|\nabla f(\underline{x}^{k})\|^2\\
+        &= f(\underline{x}^{(k)}) - \dfrac{1}{2L} \|\nabla f(\underline{x}^{k})\|^2\\
+    \end{split}
+\]
+At each iteration we are reducing the value of $f$ because we are subtracting a positive value everytime. So, by choosing the correct value of the learning rate we have this guarantee. These are called sufficient decrease conditions.\\
+
+So we have
+\begin{itemize}
+    \item smoothness L
+    \item $\eta = \frac{1}{L}$
+\end{itemize}
+Then, you can prove that:
+\[
+    f(\underline{x}^{(N)}) - f(x^*) \leq \dfrac{L}{2N}\|\underline{x}^{(0)} - \underline{x}^*\|^2 \hspace{0.5cm} N > 0    
+\]
+Proof:
+\[
+    \dfrac{1}{2L} \sum_{k=0}^{N-1} \|\nabla f(\underline{x}^{(k)})\|^2 \leq \sum_{k=0}^{N-1} \left(f(\underline{x}^{k}) - f(\underline{x}^{k+1}) \right) = f(\underline{x}^{(0)}) - f(\underline{x}^{(N)})  
+\]
+If we assume to have $\|\underline{x}^{(0)} - \underline{x}^*\|\leq R$ then 
+\[
+    \dfrac{LR^2}{2N} < \epsilon \implies N > \dfrac{LR^2}{2\epsilon} \implies N = O\left(\dfrac{1}{\epsilon}\right)   
+\]
+This means that the gradient descent applied to a smooth function, with learning rate equal to $1/L$, then we can expect to achieve a tolerance of the order of $\epsilon$ in a number of iteration in the order of $1/\epsilon$ and not $1/\epsilon^2$ as in the case of Lipschitz continuous functions. This is way better even if apparantly the starting condition is weaker. This smooth function case is the practical one. 

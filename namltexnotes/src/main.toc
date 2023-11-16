@@ -1,50 +1,54 @@
-\contentsline {section}{\numberline {1}Basic concepts of linear algebra}{4}{section.1}%
-\contentsline {section}{\numberline {2}Matrix-vector multiplication}{4}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Row-reduced echelon form}{5}{subsection.2.1}%
-\contentsline {section}{\numberline {3}Matrix-matrix multiplication}{5}{section.3}%
-\contentsline {section}{\numberline {4}Factorizations}{5}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Orthogonal matrices}{6}{subsection.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}Rotation}{6}{subsubsection.4.1.1}%
-\contentsline {subsubsection}{\numberline {4.1.2}Reflection}{6}{subsubsection.4.1.2}%
-\contentsline {section}{\numberline {5}Null spaces}{7}{section.5}%
-\contentsline {section}{\numberline {6}Null space cardinality}{8}{section.6}%
-\contentsline {section}{\numberline {7}Eigenvalues and eigenvectors}{9}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Eigenvectors of matrix power}{9}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Power method}{9}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Similar matrices}{9}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}QR factorization}{10}{subsection.7.4}%
-\contentsline {subsubsection}{\numberline {7.4.1}QR iteration}{10}{subsubsection.7.4.1}%
-\contentsline {subsection}{\numberline {7.5}Positive-definite symmetric matrices (SPD)}{11}{subsection.7.5}%
-\contentsline {section}{\numberline {8}Singular Value Decomposition (SVD)}{12}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Economy SVD}{13}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Proof of the existence of SVD}{14}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Geometrical interpretation of SVD}{16}{subsection.8.3}%
-\contentsline {subsubsection}{\numberline {8.3.1}Properties of SVD}{16}{subsubsection.8.3.1}%
-\contentsline {subsection}{\numberline {8.4}Snapshots method}{16}{subsection.8.4}%
-\contentsline {subsection}{\numberline {8.5}Matrix norms}{17}{subsection.8.5}%
-\contentsline {subsection}{\numberline {8.6}Eckart-Young theorem}{17}{subsection.8.6}%
-\contentsline {subsubsection}{\numberline {8.6.1}Proof considering $||\cdot ||_F$}{18}{subsubsection.8.6.1}%
-\contentsline {subsubsection}{\numberline {8.6.2}Proof considering $||\cdot ||_2$}{19}{subsubsection.8.6.2}%
-\contentsline {section}{\numberline {9}PCA}{20}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Choose rank of truncated SVD}{20}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Randomize SVD}{21}{subsection.9.2}%
-\contentsline {section}{\numberline {10}Least squares approximation}{22}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Geometrical interpretation}{22}{subsection.10.1}%
-\contentsline {subsection}{\numberline {10.2}Optimization}{23}{subsection.10.2}%
-\contentsline {section}{\numberline {11}Matrix completion}{26}{section.11}%
-\contentsline {subsection}{\numberline {11.1}Ideal estimator}{27}{subsection.11.1}%
-\contentsline {subsection}{\numberline {11.2}Practical estimator}{27}{subsection.11.2}%
-\contentsline {subsection}{\numberline {11.3}Ridge regression (regularization)}{28}{subsection.11.3}%
-\contentsline {section}{\numberline {12}Page Rank}{29}{section.12}%
-\contentsline {section}{\numberline {13}Kernel Methods}{32}{section.13}%
-\contentsline {section}{\numberline {14}Computing derivatives}{35}{section.14}%
-\contentsline {subsection}{\numberline {14.1}Dual-numbers}{37}{subsection.14.1}%
-\contentsline {section}{\numberline {15}Convolution}{40}{section.15}%
-\contentsline {subsection}{\numberline {15.1}Cyclic convolution}{40}{subsection.15.1}%
-\contentsline {subsection}{\numberline {15.2}Eigenvectors and eigenvalues of a circuland matrix}{41}{subsection.15.2}%
-\contentsline {section}{\numberline {16}Appendix}{44}{section.16}%
-\contentsline {subsection}{\numberline {16.1}Functional Analysis}{44}{subsection.16.1}%
-\contentsline {subsection}{\numberline {16.2}Riemann integral}{46}{subsection.16.2}%
-\contentsline {subsection}{\numberline {16.3}Lebesque integral}{46}{subsection.16.3}%
-\contentsline {subsection}{\numberline {16.4}Weak derivatives}{48}{subsection.16.4}%
-\contentsline {subsection}{\numberline {16.5}Sobolev spaces}{49}{subsection.16.5}%
+\contentsline {section}{\numberline {1}Basic concepts of linear algebra}{5}{section.1}%
+\contentsline {section}{\numberline {2}Matrix-vector multiplication}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Row-reduced echelon form}{6}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Matrix-matrix multiplication}{6}{section.3}%
+\contentsline {section}{\numberline {4}Factorizations}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Orthogonal matrices}{7}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Rotation}{7}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Reflection}{7}{subsubsection.4.1.2}%
+\contentsline {section}{\numberline {5}Null spaces}{8}{section.5}%
+\contentsline {section}{\numberline {6}Null space cardinality}{9}{section.6}%
+\contentsline {section}{\numberline {7}Eigenvalues and eigenvectors}{10}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Eigenvectors of matrix power}{10}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Power method}{10}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Similar matrices}{10}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}QR factorization}{11}{subsection.7.4}%
+\contentsline {subsubsection}{\numberline {7.4.1}QR iteration}{11}{subsubsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.5}Positive-definite symmetric matrices (SPD)}{12}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Singular Value Decomposition (SVD)}{13}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Economy SVD}{14}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Proof of the existence of SVD}{15}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Geometrical interpretation of SVD}{17}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Properties of SVD}{17}{subsubsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.4}Snapshots method}{17}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Matrix norms}{18}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}Eckart-Young theorem}{18}{subsection.8.6}%
+\contentsline {subsubsection}{\numberline {8.6.1}Proof considering $||\cdot ||_F$}{19}{subsubsection.8.6.1}%
+\contentsline {subsubsection}{\numberline {8.6.2}Proof considering $||\cdot ||_2$}{20}{subsubsection.8.6.2}%
+\contentsline {section}{\numberline {9}PCA}{21}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Choose rank of truncated SVD}{21}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Randomize SVD}{22}{subsection.9.2}%
+\contentsline {section}{\numberline {10}Least squares approximation}{23}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Geometrical interpretation}{23}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Optimization}{24}{subsection.10.2}%
+\contentsline {section}{\numberline {11}Matrix completion}{27}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Ideal estimator}{28}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Practical estimator}{28}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Ridge regression (regularization)}{29}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Page Rank}{30}{section.12}%
+\contentsline {section}{\numberline {13}Kernel Methods}{33}{section.13}%
+\contentsline {section}{\numberline {14}Computing derivatives}{36}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Dual-numbers}{38}{subsection.14.1}%
+\contentsline {section}{\numberline {15}Convolution}{41}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Cyclic convolution}{41}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Eigenvectors and eigenvalues of a circuland matrix}{42}{subsection.15.2}%
+\contentsline {section}{\numberline {16}Gradient descent (GD)}{45}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Convergence}{45}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Lipschitz convex functions}{46}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Smooth convex functions}{47}{subsection.16.3}%
+\contentsline {section}{\numberline {17}Appendix}{49}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Functional Analysis}{49}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Riemann integral}{51}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Lebesque integral}{51}{subsection.17.3}%
+\contentsline {subsection}{\numberline {17.4}Weak derivatives}{53}{subsection.17.4}%
+\contentsline {subsection}{\numberline {17.5}Sobolev spaces}{54}{subsection.17.5}%
