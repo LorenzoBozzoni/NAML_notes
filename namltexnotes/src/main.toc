@@ -46,9 +46,15 @@
 \contentsline {subsection}{\numberline {16.1}Convergence}{45}{subsection.16.1}%
 \contentsline {subsection}{\numberline {16.2}Lipschitz convex functions}{46}{subsection.16.2}%
 \contentsline {subsection}{\numberline {16.3}Smooth convex functions}{47}{subsection.16.3}%
-\contentsline {section}{\numberline {17}Appendix}{49}{section.17}%
-\contentsline {subsection}{\numberline {17.1}Functional Analysis}{49}{subsection.17.1}%
-\contentsline {subsection}{\numberline {17.2}Riemann integral}{51}{subsection.17.2}%
-\contentsline {subsection}{\numberline {17.3}Lebesque integral}{51}{subsection.17.3}%
-\contentsline {subsection}{\numberline {17.4}Weak derivatives}{53}{subsection.17.4}%
-\contentsline {subsection}{\numberline {17.5}Sobolev spaces}{54}{subsection.17.5}%
+\contentsline {subsection}{\numberline {16.4}Convergence results for Gradient Descent}{49}{subsection.16.4}%
+\contentsline {subsection}{\numberline {16.5}Accelerated Gradient Descent}{49}{subsection.16.5}%
+\contentsline {section}{\numberline {17}How a neural network works}{50}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Cost function J}{50}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Fundamental relations}{50}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Algorithm}{52}{subsection.17.3}%
+\contentsline {section}{\numberline {18}Appendix}{53}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Functional Analysis}{53}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}Riemann integral}{55}{subsection.18.2}%
+\contentsline {subsection}{\numberline {18.3}Lebesque integral}{55}{subsection.18.3}%
+\contentsline {subsection}{\numberline {18.4}Weak derivatives}{57}{subsection.18.4}%
+\contentsline {subsection}{\numberline {18.5}Sobolev spaces}{58}{subsection.18.5}%
