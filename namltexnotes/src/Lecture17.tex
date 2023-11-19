@@ -172,3 +172,53 @@ Now we can write the fundamental relations:
         \dfrac{\partial J}{\partial b_j^l} = \delta_j^l \hspace{1cm} \dfrac{\partial J}{\partial w_{jk}^l} = a_k^{l-1} \delta_j^l
     \]
 \end{enumerate}
+
+\subsection{Stochastic Gradient Descent (SGD)}
+Find $w^* = \arg\min_{\underline{w}} J(\underline{w})$. Until now we have considered the standard gradient descent for which the iterations where given by $\underline{w}^{(k+1)} = \underline{w}^{(k)} - \eta \nabla J(\underline{w}^{(k)})$. We can define the finite sum of $J$ as $J(\underline{w}) = \dfrac{1}{N} \sum_{i=1}^{N} J_i(\underline{w})$ where $N$ is the number of samples.
+
+For example: $J(\underline{w}) = \dfrac{1}{N}\Vert \underline{y} - X\underline{w}\Vert^2 = \dfrac{1}{N} \sum_{i=1}^N \underbrace{\left(y_i - \underline{x}_i^\intercal \underline{w}\right)^2}_{J_i}$ (LS). \\
+
+The stochastic gradient descent method at iteration $k$, select a random sample $i_k \in \{1,2,\dots,N\}$ and update the weights as:
+\[
+    \underline{w}^{(k+1)} = \underline{w}^{(k)} - \eta \nabla J_{i_k}(\underline{w}^{(k)})
+\]
+Where $J_{i_k}$ is the cost function for the $i_k$-th sample. The important thing is that the gradient descent is computer \textbf{for only one sample at a time so this results in being N times faster than the standard GD!}.
+
+Remark: in ML we have training data $\{(\underline{x}_1, y_1), \dots, (\underline{x}_N, y_N)\}$ where $\underline{x}_i \in \mathbb{R}^d$, both $N$ and $d$ are large. \\
+
+\textbf{1D example}.\\
+We have:
+\[
+    J(w) = \dfrac{1}{2}\sum_{i=1}^N \left(x_i w - b_i\right)^2   
+\]
+Each $\left(x_i w - b_i\right)^2$ is a quadratic function. I want to minimize each $J_i$ so i set the derivative to zero:
+\[
+    \dfrac{\partial J_i}{\partial w} = 0 \implies \dfrac{1}{2}2\left(x_i w - b_i\right)x_i = 0 \implies w = \dfrac{b_i}{x_i}
+\]
+For the whole function we have:
+\[
+    \dfrac{\partial J}{\partial w} = \sum_{i=1}^N \dfrac{\partial J_i}{\partial w} = \sum_{i=1}^N \left(x_i w - b_i\right)x_i = 0 \implies \underline{w}^* = \dfrac{\sum_{i=1}^N b_i x_i}{\sum_{i=1}^N x_i^2}    
+\]
+\[
+  w^* \in \left[\min_i \dfrac{b_i}{x_i}, \max_i \dfrac{b_i}{x_i}\right]  
+\]
+We can plot it as:
+\begin{center}
+    \includegraphics[scale=0.3]{../images/SGD.png}
+\end{center}
+Where $R$ is the Region of confusion. In the Far Out Zone (FOZ) $\nabla J_i$ has the same sign as $\nabla J$. Stochastic gradient descent uses a randomized version $g$ of $\nabla J$ and we have:
+\[
+    \mathbb{E}[g] = \nabla J \hspace{1cm} \text{unbiased estimator}     
+\]
+It is important to control the variance and speed. How to choose $i_k$:
+\begin{enumerate}
+    \item Randomly pick $i_k$ with replacement (good theoretically)
+    \item Randomly pick $i_k$ without replacement (good in practice)
+\end{enumerate}
+
+\subsubsection{Minibatch}
+It uses the following update rule:
+\[
+    \underline{w}^{(k+1)} = \underline{w}^{(k)} - \dfrac{\eta}{\vert I_k\vert} \sum_{j \in I_k} \nabla J_j(\underline{w}^{(k)})
+\]
+So, basically, we are taking the average of the gradients of the samples in the minibatch. This helps reducing the variance. Very large mini-batch shrinks confusion region (reduced noises) and can create overfitting. It helps also for parallelism. 

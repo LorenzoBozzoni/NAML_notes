@@ -52,9 +52,11 @@
 \contentsline {subsection}{\numberline {17.1}Cost function J}{50}{subsection.17.1}%
 \contentsline {subsection}{\numberline {17.2}Fundamental relations}{50}{subsection.17.2}%
 \contentsline {subsection}{\numberline {17.3}Algorithm}{52}{subsection.17.3}%
-\contentsline {section}{\numberline {18}Appendix}{53}{section.18}%
-\contentsline {subsection}{\numberline {18.1}Functional Analysis}{53}{subsection.18.1}%
-\contentsline {subsection}{\numberline {18.2}Riemann integral}{55}{subsection.18.2}%
-\contentsline {subsection}{\numberline {18.3}Lebesque integral}{55}{subsection.18.3}%
-\contentsline {subsection}{\numberline {18.4}Weak derivatives}{57}{subsection.18.4}%
-\contentsline {subsection}{\numberline {18.5}Sobolev spaces}{58}{subsection.18.5}%
+\contentsline {subsection}{\numberline {17.4}Stochastic Gradient Descent (SGD)}{52}{subsection.17.4}%
+\contentsline {subsubsection}{\numberline {17.4.1}Minibatch}{53}{subsubsection.17.4.1}%
+\contentsline {section}{\numberline {18}Appendix}{54}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Functional Analysis}{54}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}Riemann integral}{56}{subsection.18.2}%
+\contentsline {subsection}{\numberline {18.3}Lebesque integral}{56}{subsection.18.3}%
+\contentsline {subsection}{\numberline {18.4}Weak derivatives}{58}{subsection.18.4}%
+\contentsline {subsection}{\numberline {18.5}Sobolev spaces}{59}{subsection.18.5}%
