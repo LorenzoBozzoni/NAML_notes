@@ -1,0 +1,209 @@
+Let's continue the discussion on stochastic gradient descent method. We recall the cost function:
+\[
+    J(\underline{w}) = \dfrac{1}{N}\sum_{i=1}^N J_i(\underline{w})    
+\]
+And the algorithm is the following:
+\begin{itemize}
+    \item sample $i_k$ randomly from $\{1,\dots,N\}$
+    \item $\underline{w}_{k+1} = \underline{w}_k - \eta_k \underbrace{\nabla J_{i_k}(\underline{w}^{(k)})}_{g_k= \text{ stochastic gradient}}$
+\end{itemize}
+\textbf{Theorem}: the following statements are equivalent to the condition that differentiable function is $\mu$-strongly convex:
+\begin{enumerate}[i]
+    \item $f(y) \geq f(x) + \nabla f(x)^\intercal (y-x) + \dfrac{\mu}{2}\|y-x\|^2$
+    \item $g(x) = f(x) - \dfrac{\mu}{2}\|x\|^2$ is convex
+    \item $(\nabla f(x) - \nabla f(y))^\intercal (y-x) \geq \mu \|x-y\|^2$
+\end{enumerate}
+It is trivial to check that $i \implies ii$ and $ii \implies iii$. 
+
+\subsubsection{Simple convergence results for SGD}
+Consider two quantities:
+\begin{itemize}
+    \item $J(\underline{w}^{(k+1)}) - J(\underline{w}^*)$
+    \item $\mathbb{E}[J(\underline{w}^{(k+1)}) - J(\underline{w}^*)]$
+\end{itemize}
+These are two measures to evaluate the convergence of the algorithm. We can consider convergence in expectation.
+\textbf{Theorem}: assume $\underline{w}^*$ is the minimizer of $J$ and:
+\begin{enumerate}[i]
+    \item $\nabla J$ is L-Lipschitz $\implies J(\underline{y}) \leq J(\underline{x}) + \nabla J(\underline{x})^\intercal (\underline{y} - \underline{x})  + \dfrac{L}{2}\|\underline{y} - \underline{x}\|^2$
+    \item $J$ is $\mu$-strongly convex $\implies J(\underline{y}) \geq J(\underline{x}) + \nabla J(\underline{x})^\intercal (\underline{y} - \underline{x})  + \dfrac{\mu}{2}\|\underline{y} - \underline{x}\|^2$
+    \item $\|\nabla J_i(\underline{x})\| \leq C \hspace{0.5cm} \forall\underline{w},i$
+    \item $0 < \eta < \dfrac{1}{2\mu}$
+    \item $\mathbb{E}[g_k] = \nabla J(\underline{w}^{(k)})$
+\end{enumerate}
+Then, we have two results:
+\begin{enumerate}
+    \item $\mathbb{E}[\|\underline{w}^{(k)} - \underline{w}^*\|^2] \leq (1-2\mu \eta)^k \|\underline{w}^{(0)} - \underline{w}^*\|^2 +\dfrac{\eta C^2}{2\mu}$
+    \item $\mathbb{E}[J(\underline{w}^{(k)}) - J(\underline{w}^*)] \leq (1-2\mu \eta)^k [J(\underline{w}^{(0)}) - J(\underline{w}^*)] + \dfrac{L\eta C^2}{4\mu}$
+\end{enumerate}
+Let's report some considerations on these results. Firstly, we can see that, if the condition $iv$ is verified, the quantity $(1 - 2\eta\mu)$ is smaller than 1. So, when its power $k$ is large enough, the whole parenthesis goes to 0 and so the terms which are multiplied to it are going aswell to 0. Notice that this $\|\underline{w}^{(0)} - \underline{w}^*\|^2$ and $J(\underline{w}^{(0)}) - J(\underline{w}^*)$ are the error on the initial guess evaluated both on the values and the function. Then, there are two last additional terms which comprehend three terms that are not tunable: $\nu, \eta, L$. \textbf{The only paramter we can modify is $\eta$, and once it is fixed the last fractional terms become a costant and can be seen as a noise. }\\
+
+\textbf{Let's now prove the first result (1):}
+
+\begin{minipage}[c]{0.7\linewidth}
+    \[
+        \begin{split}
+            \| \underline{w}^{(k+1)} - \underline{w}^*\|^2 &= \| \underline{w}^{(k)} -  \eta \nabla J_{i_k}(\underline{w}^{(k)}) - \underline{w}^*\|^2\\
+            &= \| \underline{w}^{(k)} - \underline{w}^*\|^2 - 2\eta \nabla J_{i_k}(\underline{w}^{(k)})^\intercal (\underline{w}^{(k)} - \underline{w}^*) + \eta^2 \|\nabla J_{i_k}(\underline{w}^{(k)})\|^2\\    
+            &\leq \| \underline{w}^{(k)} - \underline{w}^*\|^2 - 2\eta \nabla J_{i_k}(\underline{w}^{(k)})^\intercal (\underline{w}^{(k)} - \underline{w}^*) + \eta^2 C^2\\
+        \end{split}
+    \]
+    \end{minipage} % no space if you would like to put them side by side
+    \begin{minipage}[c]{0.25\linewidth}
+        In the first step we have substitued the definition of stochastic gradient descent. Now, we use the $iii$ condition in the last term of the formula to express the following inequality:
+    \end{minipage}
+
+Now we take the expectation from both sides and we exploit condition $v$ (we rewrite the expectation of the gradient) to obtain the following:
+\[
+    \mathbb{E}[ \| \underline{w}^{(k+1)} - \underline{w}^*\|^2] \leq \| \underline{w}^{(k)} - \underline{w}^*\|^2 - 2\eta \nabla J_{i_k}(\underline{w}^{(k)})^\intercal (\underline{w}^{(k)} - \underline{w}^*)+ \eta^2 C^2
+\]
+Now we want to bound the term next to the gradient by means of the $iii$ relation of the theorem above, the second last one. The inequality of the theorem is $(\nabla f(x) - \nabla f(y))^\intercal (x-y) \geq \mu \|x-y\|^2$ and we are going to apply it as $(\nabla J(\underline{w}^{(k)}) - \nabla J(\underline{w}^{*}))^\intercal (\underline{w}^{(k)}-\underline{w}^*)\geq \mu \|x-y\|^2$. But, $\nabla J(\underline{w}^{*})$ is 0 because $\underline{w}^*$ is the minimizer of $J$. So, we can notice that the formula just written is equal to $\nabla J_{i_k}(\underline{w}^{(k)})^\intercal (\underline{w}^{(k)} - \underline{w}^*)$. So, we can substitute the term in the inequality and we obtain:
+\[
+    \begin{split}
+        \mathbb{E}[ \| \underline{w}^{(k+1)} - \underline{w}^*\|^2] &\leq \| \underline{w}^{(k)} - \underline{w}^*\|^2 - 2\eta \mu \| \underline{w}^{(k)} - \underline{w}^*\|^2+ \eta^2 C^2\\
+        &= (1-2\eta \mu) \| \underline{w}^{(k)} - \underline{w}^*\|^2 + \eta^2 C^2\\
+    \end{split}
+\]
+Now, we can see that in the left part there is the expectation on the next iteration, while in the right part there is the error on the current iteration. So, we can iterate the formula and we obtain:
+\[
+    \mathbb{E}[ \| \underline{w}^{(k)} - \underline{w}^*\|^2] \leq (1-2\eta \mu)^k \| \underline{w}^{(0)} - \underline{w}^*\|^2 + \sum_{i=0}^{\overset{+\infty}{\not k}} (1-2\eta \mu)^i \eta^2 C^2
+\]
+Where $k$ as upper bound of the sum is substitued with $+\infty$ because all terms in the sum are positive. Now, we can notice that the sum is a geometric series and we can compute it as:
+\[
+    \sum_{i=1}^{\infty} r^i = \dfrac{1}{1-r} \hspace{1cm} |r|<1    
+\]
+So if we substitute $r = 1-2\eta \mu$ we obtain:
+\[
+    \sum_{i=0}^{\infty} (1-2\eta \mu)^i \eta^2 C^2 = \dfrac{\eta^2 C^2}{1-(1-2\eta \mu)} = \dfrac{\eta^2 C^2}{2\eta \mu} = \dfrac{\eta C^2}{2\mu}    
+\]
+And so the first result of the theorem:
+\[
+    \mathbb{E}[ \| \underline{w}^{(k)} - \underline{w}^*\|^2] \leq (1-2\eta \mu)^k \| \underline{w}^{(0)} - \underline{w}^*\|^2 + \dfrac{\eta C^2}{2\mu}
+\]
+
+
+\noindent\textbf{Let's now prove the second result (2):}
+We start from:
+\[
+    J(\underline{w}^{(k+1)}) \leq J(\underline{w}^{(k)}) + \nabla J(\underline{w}^{(k)})^\intercal (\underline{w}^{(k+1)} - \underline{w}^{(k)}) + \dfrac{L}{2}\|\underline{w}^{(k+1)} - \underline{w}^{(k)}\|^2
+\]
+Now, we can substitute the definition of stochastic gradient descent and we obtain:
+\[
+    \begin{split}
+        J(\underline{w}^{(k+1)}) &\leq J(\underline{w}^{(k)})+ \nabla J(\underline{w}^{(k)})^\intercal(\underline{w}^{(k)} - \eta \nabla J_{i_k}(\underline{w}^{(k)}) - \underline{w}^{(k)}) + \dfrac{L}{2}\|\underline{w}^{(k)} - \eta \nabla J_{i_k}(\underline{w}^{(k)}) - \underline{w}^{(k)}\|^2\\  
+        &\leq J(\underline{w}^{(k)}) - \eta \nabla J(\underline{w}^{(k)})^\intercal \nabla  J_{i_k}(\underline{w}^{(k)})+ \dfrac{L\eta^2 C^2}{2}\\
+    \end{split}
+\]
+We subtract $J(\underline{w}^*)$ from both sides and we and take the expectation from both sides. We can notice that the expectation of the gradient is equal to the gradient of the function, i.e., thanks to property $v$ of the last theorem $\mathbb{E}[\nabla  J_{i_k}(\underline{w}^{(k)})] = \nabla J(\underline{w}^{(k)})$. So there is the product of the gradient times itself which results in its norm. Eventually, we obtain:
+\[
+    \begin{split}
+        \mathbb{E}[J(\underline{w}^{(k+1)}) - J(\underline{w}^*)] &\leq J(\underline{w}^{(k)}) - J(\underline{w}^*) - \eta \|\nabla J(\underline{w}^{(k)})\|+ \dfrac{L\eta^2 C^2}{2} \hspace{0.2cm}(\dagger) \\ 
+    \end{split}
+\]
+Now, take into account the $i$ condition of the theorem. We want to find the terms which minimize both terms. The inequality to consider is the following:
+\[
+    J(\underline{y}) \geq J(\underline{x}) + \nabla J(\underline{x})^\intercal (\underline{y}-\underline{x}) + \dfrac{\mu}{2}\|\underline{y}-\underline{x}\|^2    
+\]
+We consider side separately:
+\begin{itemize}
+    \item LHS: $\underline{y} = \underline{x}^*$
+    \item RHS: $\underline{y} = \underline{x} - \dfrac{1}{\mu}\nabla J(\underline{x})$
+\end{itemize}
+To obtain the second result (RHS) you should compute the derivative wrt y and set it to 0. If you substitute the term of the RHS in the inequality you obtain:
+\[
+    J(\underline{w}^*) > J(\underline{w}) - \dfrac{1}{2 \mu} \|\nabla J(\underline{w})\|^2
+\]
+Going back to inequality ($\dagger$) we have:
+\[
+    \begin{split}
+        \mathbb{E}[J(\underline{w}^{(k+1)}) - J(\underline{w}^*)] &\leq J(\underline{w}^{(k)}) - J(\underline{w}^*) - 2\eta\mu (J(\underline{w}^{(k)}) - J(\underline{w}^*)) + \dfrac{L\eta^2 C^2}{2}\\ 
+        &\leq (1-2\eta \mu) [J(\underline{w}^{(k)}) - J(\underline{w}^*)] + \dfrac{L\eta^2 C^2}{2}\\
+    \end{split}    
+\]
+Now as in the previous proof, we can iterate the inequality:
+\[
+    \begin{split}
+        \mathbb{E}[J(\underline{w}^{(k)}) - J(\underline{w}^*)] &\leq (1-2\eta \mu)^k [J(\underline{w}^{(0)}) - J(\underline{w}^*)] + \sum_{i=0}^{\overset{+\infty}{\not k}} (1-2\eta \mu)^i \dfrac{L\eta^2 C^2}{2}\\
+        &\leq (1-2\eta \mu)^k [J(\underline{w}^{(0)}) - J(\underline{w}^*)] + \dfrac{L\eta^2 C^2}{4\mu}\\
+    \end{split}
+\]
+And this concludes the proof of convergence of the stochastic gradient descent method for functions with good properties. 
+
+Until now we have considered $\eta$ as fixed value. When this is true, its value value is very important because if too small the computational cost will be huge, while if too large the algorithm will not converge. Moreover, the learning rate can be adjusted not only iteration by iteration but also depending on the different parameters we have to update.
+
+\subsubsection{Line Search Procedure}
+Example of picking learning rate varying on the iteration ($\eta_k$):
+\begin{itemize}
+    \item initial guess: $\underline{w}^{(0)}$
+    \item pick a direction $\underline{P}_k$ such that $\underline{P}_k^\intercal \nabla J(\underline{w}^{(k)}) < 0$ (i.e direction towards the minimum)
+    \item typically $\underline{P}_k = \dfrac{-\nabla J(\underline{w}^{(k)})}{\|\nabla J(\underline{w}^{(k)})\|}$
+    \item $\underline{w}^{(k+1)} = \underline{w}^{(k)} + \eta_k\underline{P}_k$
+    \item $\eta_k$ is chosen to minimize ($\arg\min_{\eta}$) $J(\underline{w}^{(k)} + \eta_k\underline{P}_k)$
+\end{itemize}
+Obviously the choice of $\eta_k$ is a minimization problem, that can be solved by means of analytical methods or by iterative procedures depending on the case. \\
+\textbf{Example}\\
+Consider the function:
+\[J(\underline{x}) = x_1 - x_2 + 2x_1x_2 + 2x_1^2 + x_2^2\]
+\[
+    \underline{x} = \begin{bmatrix}
+        x_1\\x_2
+    \end{bmatrix} \hspace{2cm}
+    \nabla J(\underline{x}) = \begin{bmatrix}
+        1 + 2x_2 + 4x_1\\-1 + 2x_1 + 2x_2
+    \end{bmatrix}    
+\]
+Let's define the initial guess and so the initial gradient:
+\[
+    \underline{x}^{(0)} = 
+    \begin{bmatrix}
+        0\\0
+    \end{bmatrix} \hspace{2cm}
+    \nabla J(\underline{x}^{(0)}) =
+    \begin{bmatrix}
+        1\\-1
+    \end{bmatrix}    
+\]
+Now, we have to solve:
+\[
+    J(\underline{x}^{(0)} - \eta \nabla J(\underline{x}^{(0)})) = J\left(  
+        \begin{bmatrix}
+            0\\0
+        \end{bmatrix}-
+        \eta 
+        \begin{bmatrix}
+            1\\-1
+        \end{bmatrix}
+    \right) = J\left(  
+        \begin{bmatrix}
+            -\eta\\
+            \eta
+        \end{bmatrix}
+        \right) = \eta^2 - 2\eta
+\]
+Now we have to minimize this function so we compute the derivative and set it to 0:
+\[
+    \dfrac{d}{d\eta} J\left(  
+        \begin{bmatrix}
+            -\eta\\
+            \eta
+        \end{bmatrix}
+        \right) = 2\eta - 2 = 0 \implies \eta = 1
+\]
+This means that, for the first iteration, the value of the learning rate which minimizes the function is $\eta = 1$. This can be done for each iteration. 
+This procedure is like cutting the function in one direction and then choose the learning rate which minimizes that 1D function. 
+
+
+\subsubsection{Adagrad}
+Adagrad is an algorithm which adapts the learning rate to the parameters, performing smaller updates (i.e. low learning rates) for parameters associated with frequently occurring features, and larger updates (i.e. high learning rates) for parameters associated with infrequent features. For this reason, it is well-suited for dealing with sparse data.\\
+
+\[
+    \eta = \begin{cases}
+        \text{for rare features: } \eta \text{ large}\\
+        \text{for frequent features: } \eta \text{ small}\\
+    \end{cases}
+\]
+\[
+    \eta_{k,d} \propto \dfrac{1}{\sum_{i=1}^k \nabla J_{d_i}}    
+\]
+Where $k$ is the number of iteration, $d$ is the feature and $d_i$ is the feature at the $i$-th iteration. Drawback: the denominator is a sum of all the gradients, so the learning rate decreases over time. This means that the learning rate will be very small after a lot of iterations and it happens that the algorithm gets stuck in a certain point (i.e. we are not learning anymore).
+
+To address this problem, \textbf{Adadelta} and \textbf{RSMProp} take some sort of average gradients.

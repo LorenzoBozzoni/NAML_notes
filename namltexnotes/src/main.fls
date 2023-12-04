@@ -288,6 +288,9 @@ INPUT Lecture16.aux
 INPUT ./Lecture17.aux
 INPUT ./Lecture17.aux
 INPUT Lecture17.aux
+INPUT ./Lecture18.aux
+INPUT ./Lecture18.aux
+INPUT Lecture18.aux
 INPUT ./Appendix.aux
 INPUT ./Appendix.aux
 INPUT Appendix.aux
@@ -505,6 +508,12 @@ INPUT ../images/SGD.png
 INPUT ../images/SGD.png
 INPUT ../images/SGD.png
 INPUT ../images/SGD.png
+INPUT ./Lecture18.tex
+INPUT ./Lecture18.tex
+OUTPUT Lecture18.aux
+INPUT ./Lecture18.tex
+INPUT ./Lecture18.tex
+INPUT Lecture18.tex
 INPUT ./Appendix.tex
 INPUT ./Appendix.tex
 OUTPUT Appendix.aux
@@ -579,6 +588,9 @@ INPUT Lecture16.aux
 INPUT ./Lecture17.aux
 INPUT ./Lecture17.aux
 INPUT Lecture17.aux
+INPUT ./Lecture18.aux
+INPUT ./Lecture18.aux
+INPUT Lecture18.aux
 INPUT ./Appendix.aux
 INPUT ./Appendix.aux
 INPUT Appendix.aux
