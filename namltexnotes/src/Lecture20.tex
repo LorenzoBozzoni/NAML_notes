@@ -1,0 +1,113 @@
+\section{Cross-Entropy function}
+Example: single neuron.\\
+Let $J = \dfrac{(y-a)^2}{2}$ with $x=1$ input, $y=0$ (desired output), $a = \sigma(z) = \sigma(wx + b)$ neuron output for input $x=1$.\\
+
+We have that:
+\[
+    \dfrac{\partial J}{\partial w} = (a-y)\sigma'(z)x = a\sigma'(z) \hspace{1cm} \text{because } y=0    
+\]
+\[
+    \dfrac{\partial J}{\partial b} = (a-y)\sigma'(z) = a\sigma'(z) 
+\]
+Let's see $\sigma'(z)$: consider the sigmoid:\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (-3.5, 0) -- (3.5, 0) node[right] {$z$};
+        \draw[->] (0, -1) -- (0, 2) node[above] {$\sigma(z)$};
+        \draw[scale=1, domain=-3:3, smooth, variable=\x, blue] plot ({\x}, {1/(1+exp(-\x))});
+      \end{tikzpicture}          
+\end{center}
+
+If $a$ is close to 1 then the curve is flat so $\sigma'(z)$ is very small. But if $\dfrac{\partial J}{\partial w}$ and $\dfrac{\partial J}{\partial b} $ are small this means that \textbf{the neuron is learning slowly!}.\\
+
+Example: neuroon with many inputs $x_1, x_2, \dots, x_n$ with weights $w_1, w_2, \dots, w_n$ and bias $b$.\\
+\[
+    a = \sigma(z) = \sigma(w_1x_1 + w_2x_2 + \dots + w_nx_n + b)    
+\]
+Let's define
+\[
+    J = -\dfrac{1}{N}\sum_x \left[y\ln a + (1-y)\ln(1-a)\right]   
+\]
+The sum is over all training inputs and $y$ is the desired results (which are supposed to be either 0 or 1).
+
+Let us analyze $J$:
+\begin{enumerate}[i]
+    \item $J$ is non-negative: all the terms in the sum are negative (logarithm of a number between 0 and 1) and there is a minus in front of the sum
+    \item if the output $a$ is close to the desired output $y$ then $J$ is close to 0. In fact if $y=0$ and $a\approx 0$ then the first term $y \ln a$ vanishes; similarly the second term is $-\ln (1-a) \approx 0$. The same happens if $y=1$ and $a\approx 1$.
+\end{enumerate}
+
+So $J$ (cross-entropy function) can be used as a cost function.
+Let us compute the partial derivatives of $J$ wrt the weights after substituting $a = \sigma(z)$:
+\[
+    \begin{split}
+        \dfrac{\partial J}{\partial w_j} &= -\dfrac{1}{N}\sum_x \left[y\dfrac{1}{\sigma(z)} + (1-y)\dfrac{1}{1-\sigma(z)}\right]\dfrac{\partial \sigma}{\partial w_j}\\
+        &= \dfrac{1}{N}\sum_x \left[\dfrac{y}{\sigma(z)} - \dfrac{(1-y)}{1-\sigma(z)}\right]\sigma'(z) x_j \\
+        &= \dfrac{1}{N}\sum_x \left[\dfrac{\sigma'(z)x_j}{\sigma(z)(1-\sigma(z))}\right](\sigma(z) - y)\\
+    \end{split}
+\]
+But $\sigma'(z) = \sigma(z)(1-\sigma(z))$ for the sigmoid function $\sigma(z) = \dfrac{1}{1 + e^{-z}}$ so 
+\[
+    \dfrac{\partial J}{\partial w_j} = \dfrac{1}{N}\sum_x x_j \underbrace{(\sigma(z) - y)}_{\text{error}}\hspace{0.3cm} (\star)    
+\] 
+In $(\star)$ the error controls the derivative and we don't have $\sigma'(z)$ anymore. Similarly for the bias we have:
+\[
+    \dfrac{\partial J}{\partial b} = \dfrac{1}{N}\sum_x (\sigma(z) - y)    
+\]
+
+\subsection{How cross-entropy is obtained}
+Idea: noticing that $\sigma'(z)$ is the problem we aim at finding a $J$ such that $\sigma'(z)$ does not appear in the derivatives. So for a sample we should have:
+\[
+    \dfrac{\partial J}{\partial w_j} = x_j (a-y) \hspace{1cm} \dfrac{\partial J}{\partial b} = a-y
+\]
+We have 
+\[
+    \dfrac{\partial J}{\partial b} = \dfrac{\partial J}{\partial a} \sigma'(z)     
+\]
+using $\sigma'(z) = \sigma(z)(1- \sigma(z)) = a(1-a)$ we have
+\[
+    \dfrac{\partial J}{\partial b} = \dfrac{\partial J}{\partial a} a(1-a)    
+\]
+So from the first and last equation we have
+\[
+    \dfrac{\partial J}{\partial a} = \dfrac{a-y}{a(1-a)} \hspace{0.5cm}\overset{\text{integrating}}{\longrightarrow} \hspace{0.5cm} J = -[y \ln a - (1-y)\ln(1-a)] + C
+\]
+
+\subsection{Regularization (L2)}
+Idea: as in Least Squares, add extra term to the cost function. Example:
+\[
+    J = -\dfrac{1}{N} \sum_j \left[y_j\ln a_j^L + (1-y_j)\ln(1-a_j^L)\right] + \dfrac{\lambda}{2N}\sum_w w^2    
+\]
+\[
+    J = \dfrac{1}{2N} \sum_x \|y-a^L\|^2 + \dfrac{\lambda}{2N}\sum_w w^2    
+\]
+Where $\lambda > 0$ is the regularization parameter. The biases are usually not in the regularization. In this way the network will favor small weights. 
+
+If $\lambda$ is small we prefer to optimize the original cost function.
+
+If $\lambda$ is large we prefer to have small weights.
+
+Why does it work? We have:
+\[
+    \dfrac{\partial J}{\partial w} = \dfrac{\partial J_0}{\partial w} + \dfrac{\lambda}{N} w \hspace{1cm} \dfrac{\partial J}{\partial b} = \dfrac{\partial J_0}{\partial b}    
+\]
+so, the update rule for gradient descent becomes:
+\[
+    b^{(k+1)} = b^{(k)} - \eta \dfrac{\partial J_0}{\partial b} \hspace{1cm} w^{(k+1)} = w^{(k)} - \eta \left(\dfrac{\partial J_0}{\partial w} + \dfrac{\lambda}{N} w^{(k)}\right) = \underbrace{\left(1-\dfrac{\eta \lambda}{N}\right)}_{\text{weigth decay}}w^{(k)} - \eta \dfrac{\partial J_0}{\partial w}    
+\]
+Similarly for the stochastic gradient descent.
+
+\subsection{Regularization (L1)}
+The formula is:
+\[
+    J = J_0 + \dfrac{\lambda}{N}\sum_w |w| \implies \dfrac{\partial J}{\partial w} = \dfrac{\partial J_0}{\partial w} + \dfrac{\lambda}{N} \text{sign}(w)    
+\]
+Update for gradient descent:
+\[
+    w^{(k+1)} = w^{(k)} - \eta \left(\dfrac{\partial J_0}{\partial w} + \dfrac{\lambda}{N} \text{sign}(w^{(k)})\right)
+\]
+If $|w|$ is too large the effect of $L^1$ is much smaller then $L^2$ regularization. The opposite for small $|w|$ since L1 leads to sparsity.\\
+
+\subsection{Dropout}
+Idea: modify the network. Randomly delete (just for one iteration) half of the hidden neurons, make the forward pass and backward pass through the modified network. Repeat the process many times (every time you restart from the initial network).
+
+In the prediction the weights are computed as averages of the weights learnt in the modified networks.\\
