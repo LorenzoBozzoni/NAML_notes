@@ -67,9 +67,17 @@
 \contentsline {subsection}{\numberline {19.2}Regularization (L2)}{63}{subsection.19.2}%
 \contentsline {subsection}{\numberline {19.3}Regularization (L1)}{63}{subsection.19.3}%
 \contentsline {subsection}{\numberline {19.4}Dropout}{63}{subsection.19.4}%
-\contentsline {section}{\numberline {20}Appendix}{64}{section.20}%
-\contentsline {subsection}{\numberline {20.1}Functional Analysis}{64}{subsection.20.1}%
-\contentsline {subsection}{\numberline {20.2}Riemann integral}{66}{subsection.20.2}%
-\contentsline {subsection}{\numberline {20.3}Lebesque integral}{66}{subsection.20.3}%
-\contentsline {subsection}{\numberline {20.4}Weak derivatives}{68}{subsection.20.4}%
-\contentsline {subsection}{\numberline {20.5}Sobolev spaces}{69}{subsection.20.5}%
+\contentsline {section}{\numberline {20}Sigmoidal functions}{64}{section.20}%
+\contentsline {subsection}{\numberline {20.1}Activation functions}{64}{subsection.20.1}%
+\contentsline {section}{\numberline {21}Universal approximation theorem}{66}{section.21}%
+\contentsline {section}{\numberline {22}Complexity of NN}{70}{section.22}%
+\contentsline {section}{\numberline {23}Physics Informed Neural Networks (PINNs)}{70}{section.23}%
+\contentsline {subsection}{\numberline {23.1}Errors}{71}{subsection.23.1}%
+\contentsline {subsection}{\numberline {23.2}NS cylinder}{72}{subsection.23.2}%
+\contentsline {subsection}{\numberline {23.3}PINNs for inverse problems}{72}{subsection.23.3}%
+\contentsline {section}{\numberline {24}Appendix}{73}{section.24}%
+\contentsline {subsection}{\numberline {24.1}Functional Analysis}{73}{subsection.24.1}%
+\contentsline {subsection}{\numberline {24.2}Riemann integral}{75}{subsection.24.2}%
+\contentsline {subsection}{\numberline {24.3}Lebesque integral}{75}{subsection.24.3}%
+\contentsline {subsection}{\numberline {24.4}Weak derivatives}{77}{subsection.24.4}%
+\contentsline {subsection}{\numberline {24.5}Sobolev spaces}{78}{subsection.24.5}%
