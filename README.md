@@ -1,7 +1,7 @@
 # NAML notes
 Personal notes of Numerical Analysis for Machine Learning course @ Politecnico di Milano (A.Y 2023-2024).
 
-Feel free to use this notes as a support for your study. 
+Feel free to use this notes as a support for your study. There might be some errors for example so keep it in account if you use this material. There is already a final pdf version of the notes in the ```src``` folder. 
 
 
 ## Table of contents 
