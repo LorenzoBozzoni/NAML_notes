@@ -320,12 +320,12 @@ OUTPUT main.pdf
 INPUT ./main.out
 INPUT ./main.out
 OUTPUT main.out
-INPUT ../images/LogoPolimi.png
-INPUT ../images/LogoPolimi.png
-INPUT ../images/LogoPolimi.png
-INPUT ../images/LogoPolimi.png
-INPUT ../images/LogoPolimi.png
-INPUT /usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
+INPUT ../images/LogoPoli2.jpg
+INPUT ../images/LogoPoli2.jpg
+INPUT ../images/LogoPoli2.jpg
+INPUT ../images/LogoPoli2.jpg
+INPUT ../images/LogoPoli2.jpg
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -353,6 +353,8 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm1
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
+INPUT /usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT ./main.toc
 INPUT ./main.toc
