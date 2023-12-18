@@ -148,10 +148,10 @@ V = \begin{bmatrix}
 Where $\underline{u_2}$ is the second column of the matrix $U$ and is a vector orthogonal to $\underline{u_1}$. All elements written here and not in the previous formulation are a waste of memory.
 A concise recap of all versions of SVD:
 \begin{enumerate}
-    \item full SVD: $\underset{(m \times n)}{A} = \underset{(m \times m)}{U}\underset{(m \times n)}{\Sigma}\underset{(n \times n)}{V^\intercal}$
-    \item economy SVD: $\underset{(m \times n)}{A} = \underset {(m \times n)}{U}\underset{(n \times n)}{\Sigma}\underset{(n \times n)}{V^\intercal}$
-    \item reduced SVD: $\underset{(m \times n)}{A} = \underset{(m \times r)}{U}\underset{(r \times r)}{\Sigma}\underset{(r \times n)}{V^\intercal}$
-    \item truncated SVD approximation: $\sum\limits_{i=1}^{\tilde{r}} \sigma_i\underline{u_i}\underline{v_i^\intercal}$
+    \item \textbf{full SVD}: $\underset{(m \times n)}{A} = \underset{(m \times m)}{U}\underset{(m \times n)}{\Sigma}\underset{(n \times n)}{V^\intercal}$
+    \item \textbf{economy SVD}: $\underset{(m \times n)}{A} = \underset {(m \times n)}{U}\underset{(n \times n)}{\Sigma}\underset{(n \times n)}{V^\intercal}$
+    \item \textbf{reduced SVD}: $\underset{(m \times n)}{A} = \underset{(m \times r)}{U}\underset{(r \times r)}{\Sigma}\underset{(r \times n)}{V^\intercal}$
+    \item \textbf{truncated SVD approximation}: $\sum\limits_{i=1}^{\tilde{r}} \sigma_i\underline{u_i}\underline{v_i^\intercal}$
 \end{enumerate}
 For the first two cases the rank of $A$ is $n$, for the third is $r$ while in the first the approximation rank is decided.
 
