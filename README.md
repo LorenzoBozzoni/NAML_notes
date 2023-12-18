@@ -1,7 +1,7 @@
-# NAML notes [work in progress] 
+# NAML notes
 Personal notes of Numerical Analysis for Machine Learning course @ Politecnico di Milano (A.Y 2023-2024).
 
-Feel free to use this notes as a support for your study. 
+Feel free to use this notes as a support for your study. There might be some errors for example so keep it in account if you use this material. There is already a final pdf version of the notes in the ```src``` folder. 
 
 
 ## Table of contents 
@@ -15,6 +15,10 @@ Feel free to use this notes as a support for your study.
 - Kernel Methods
 - Computation of derivatives
 - Convolution
+- Gradient Descent
+- Neural Networks
+- Newton's Method
+- Functional Analysis
 
 ## Use this repo
 After cloning or downloading this repository, to modify or simply view the notes, you can use the Dockerfile to build your own container with everything you need.
